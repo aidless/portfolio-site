@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 应用 / Agent 工程 · 四个可点、可复现的 Demo</title>
+<meta name="description" content="四个公开 Demo：Agent 平台、榜单审计、红队覆盖矩阵、RAG 检索证据回放。每个数字都能追到 commit、JSON 或 SQLite 字段。">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#projects">跳到项目</a>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">求职作品集 · AI 应用 / Agent 工程 · 2026-10-22</p>
+    <h1>四个<em>可点、可复现</em>、<br>带边界的 AI 工程 Demo</h1>
+    <p class="lede">
+      每个数字都能追到一次 commit、一份 JSON 或一张 SQLite 表；
+      每个 Demo 都写明它<strong>不证明什么</strong>。
+      公开站是静态回放，本地模式可以现场重跑。
+    </p>
+    <ul class="hero-stats">
+      <li><strong>4</strong> 个公开 Demo</li>
+      <li><strong>4</strong> 个公开仓</li>
+      <li><strong>全部</strong> CI 绿 · Pages 可点</li>
+      <li><strong>0</strong> 第三方前端依赖</li>
+    </ul>
+    <div class="cta">
+      <a class="btn primary" href="#projects">看四个 Demo</a>
+      <a class="btn" href="#how">三分钟怎么读</a>
+      <a class="btn" href="#boundaries">先看边界</a>
+    </div>
+    <p class="hint">
+      本页零依赖：无 CDN、无外链字体、无 JS、无追踪脚本。
+      打印和深色模式都已适配。
+    </p>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section id="how" class="section">
+    <h2>三分钟怎么读</h2>
+    <div class="grid three">
+      <article class="card">
+        <h3>1 · 先点一条失败路径</h3>
+        <p>agent-platform 点 T05（工具被拒）和 T04（静默空回答）；
+        arx 比较 READABLE 与 UNREADABLE；agent-redteam 点 V09 与 V12。
+        失败路径比成功路径更能说明系统边界。</p>
+      </article>
+      <article class="card">
+        <h3>2 · 再看每个数字的来源</h3>
+        <p>每个页面都把指标映射到 <code>gateway_request</code>、<code>tool_audit</code>、
+        <code>memory_item</code> 或某份结果 JSON。数字不是手写在 HTML 里的。</p>
+      </article>
+      <article class="card">
+        <h3>3 · 最后看边界</h3>
+        <p>每个 Demo 底部都有 <code>refutes</code>：合成数据、小样本、静态回放、
+        没有接真实 LLM 的部分都明写。没有一句“生产级”。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-head">
+      <h2>四个公开 Demo</h2>
+      <p class="muted">每个都有公开仓、可点页面和契约测试；按“能讲清的工程问题”排序。</p>
+    </div>
+
+    <div class="projects">
+
+      <article class="project" id="agent-platform">
+        <div class="project-top">
+          <span class="rank">01</span>
+          <div>
+            <h3>agent-platform</h3>
+            <p class="sub">AI 应用 / Agent 平台工程 · 11 个可运行模块 · 零第三方依赖</p>
+          </div>
+          <span class="badge ok">公开 · CI 绿 · 可点</span>
+        </div>
+        <p>
+          一条客服工单穿过网关、订单库、工具沙箱、记忆压缩、LLM 和可观测层。
+          M7 端到端链路把六个模块串起来，并暴露“单模块全绿但端到端失败”的差异：
+          工具被拒、静默空回答、超时降级都在一条链里被分类。
+        </p>
+        <dl class="facts">
+          <div><dt>最硬的数字</dt><dd>9/10 成功 · 压缩省 48% · pinned 10/10</dd></div>
+          <div><dt>失败路径</dt><dd>1 工具被拒 · 1 静默空回答</dd></div>
+          <div><dt>边界</dt><dd>10 条手写工单；失败率脚本注入；延迟不是 SLO</dd></div>
+        </dl>
+        <p class="tags">
+          <span>网关 / 幂等</span><span>工具沙箱</span><span>记忆压缩</span>
+          <span>可观测</span><span>端到端</span>
+        </p>
+        <div class="project-links">
+          <a class="btn primary" href="https://aidless.github.io/agent-platform/" target="_blank" rel="noreferrer">打开 Demo</a>
+          <a class="btn" href="https://github.com/aidless/agent-platform" target="_blank" rel="noreferrer">源码</a>
+        </div>
+      </article>
+
+      <article class="project" id="arx">
+        <div class="project-top">
+          <span class="rank">02</span>
+          <div>
+            <h3>arx</h3>
+            <p class="sub">AI 评测 / 可靠性 · 榜单可读性审计 · 四种判决</p>
+          </div>
+          <span class="badge ok">公开 · CI 绿 · 可点</span>
+        </div>
+        <p>
+          arx 不回答“这个效应够不够大”，它先回答“这份测量有没有能力分辨这个比较”。
+          六个合成案例覆盖 READABLE / MARGINAL / UNREADABLE / UNDECIDABLE；
+          拒绝给数也是一个结论。
+        </p>
+        <dl class="facts">
+          <div><dt>最硬的数字</dt><dd>1 READABLE · 1 MARGINAL · 1 UNREADABLE · 3 UNDECIDABLE</dd></div>
+          <div><dt>真实案例</dt><dd>ChaosNLI case study 链接到一手结果，不在页内重算</dd></div>
+          <div><dt>边界</dt><dd>合成投票矩阵；不是真实模型排名</dd></div>
+        </dl>
+        <p class="tags">
+          <span>Dawid-Skene</span><span>噪声地板</span><span>MDE / 功效</span>
+          <span>拒绝理由</span><span>单文件报告</span>
+        </p>
+        <div class="project-links">
+          <a class="btn primary" href="https://aidless.github.io/arx/" target="_blank" rel="noreferrer">打开 Demo</a>
+          <a class="btn" href="https://github.com/aidless/arx" target="_blank" rel="noreferrer">源码</a>
+        </div>
+      </article>
+
+      <article class="project" id="agent-redteam">
+        <div class="project-top">
+          <span class="rank">03</span>
+          <div>
+            <h3>agent-redteam</h3>
+            <p class="sub">LLM 安全 / Agent 可靠性 · 12 类攻击 × 5 层防御</p>
+          </div>
+          <span class="badge ok">公开 · CI 绿 · 可点</span>
+        </div>
+        <p>
+          层内覆盖矩阵：每一格是真实 defense 类对真实攻击 payload 返回的动作。
+          这里只看“哪一层接住了哪一类”，不把它冒充成端到端多代理运行。
+        </p>
+        <dl class="facts">
+          <div><dt>最硬的数字</dt><dd>11/12 已削弱/拦截 · 10 BLOCK · 1 MODIFY · 1 FLAG-only</dd></div>
+          <div><dt>故意留的缺口</dt><dd>V12 的 expected behavior_audit 没被 harness 行使；页面明写</dd></div>
+          <div><dt>边界</dt><dd>脚本化目标；合成攻击语料；不是真实 LLM block rate</dd></div>
+        </dl>
+        <p class="tags">
+          <span>prompt injection</span><span>tool whitelist</span><span>output filter</span>
+          <span>behavior audit</span><span>constitutional</span>
+        </p>
+        <div class="project-links">
+          <a class="btn primary" href="https://aidless.github.io/agent-redteam/" target="_blank" rel="noreferrer">打开 Demo</a>
+          <a class="btn" href="https://github.com/aidless/agent-redteam" target="_blank" rel="noreferrer">源码</a>
+        </div>
+      </article>
+
+      <article class="project" id="enterprise-rag">
+        <div class="project-top">
+          <span class="rank">04</span>
+          <div>
+            <h3>enterprise-rag</h3>
+            <p class="sub">RAG / 检索工程 · 负结果与消融 · 结果回放 + 冻结基线查询</p>
+          </div>
+          <span class="badge ok">公开 · CI 绿 · 可点</span>
+        </div>
+        <p>
+          跑通不等于检索质量。hybrid 是主结果，dense 没赢，bigram 重排零贡献，
+          照搬的权重和 overlap 都不是最优；这些负结果比一个好看的单点分数更能说明判断。
+        </p>
+        <dl class="facts">
+          <div><dt>最硬的数字</dt><dd>hybrid 8/10 · dense 5/10 · 重排 Δrecall=0</dd></div>
+          <div><dt>变异测试</dt><dd>INVARIANT 6→0；DESIRABLE 11→8，仍有剩余</dd></div>
+          <div><dt>边界</dt><dd>10 题；私有语料不重跑；dense 有语言协变量</dd></div>
+        </dl>
+        <p class="tags">
+          <span>hybrid retrieval</span><span>dense 对比</span><span>metamorphic</span>
+          <span>权重 / overlap 消融</span><span>负结果</span>
+        </p>
+        <div class="project-links">
+          <a class="btn primary" href="https://aidless.github.io/enterprise-rag/" target="_blank" rel="noreferrer">打开 Demo</a>
+          <a class="btn" href="https://github.com/aidless/enterprise-rag" target="_blank" rel="noreferrer">源码</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="method" class="section">
+    <h2>方法学：四个 Demo 共用的一套判据</h2>
+    <div class="grid three">
+      <article class="card">
+        <h3>数字必须能回读</h3>
+        <p>页面不手写指标。构建脚本从 SQLite / 结果 JSON 生成 payload；
+        测试扫描 HTML/JS，发现硬编码的指标就红。</p>
+      </article>
+      <article class="card">
+        <h3>静态回放 + 本地实时</h3>
+        <p>公开站是提交进仓库的确定性构建，带 commit 和时间；
+        本地 server 可以现场重跑。静态与实时在页面上有明确标识。</p>
+      </article>
+      <article class="card">
+        <h3>边界和结果同权重</h3>
+        <p>每个页面直接渲染该仓自己的 <code>refutes</code>。
+        “这个 Demo 不证明什么”不是页脚免责声明，是一等公民。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="research" class="section">
+    <h2>研究底账</h2>
+    <p>
+      LLM 评测 / 多智能体方向的 arXiv 预印本与公开代码：
+      <a href="https://arxiv.org/a/liu_z_28" target="_blank" rel="noreferrer">arXiv 作者页</a>
+      ·
+      <a href="https://github.com/aidless" target="_blank" rel="noreferrer">GitHub @aidless</a>
+    </p>
+    <p class="muted">
+      这里只放能公开点开的产物；论文、项目数量和名次不当作 Demo 的替代品。
+    </p>
+  </section>
+
+  <section id="boundaries" class="section">
+    <h2>诚实边界（面试前必读）</h2>
+    <p class="muted">说一句夸大，前面全部作废。这些线是主动划的。</p>
+    <div class="bnd">
+      <table>
+        <thead><tr><th>缺口</th><th>我的表述</th></tr></thead>
+        <tbody>
+          <tr><td>不是生产系统</td><td>「四个都是 Demo；没有真实用户流量、SLO 或线上值班」</td></tr>
+          <tr><td>样本量小</td><td>「agent-platform 10 条工单；enterprise-rag 10 题；arx 6 个合成案例」</td></tr>
+          <tr><td>部分数据是合成的</td><td>「合成订单、合成投票矩阵、手写攻击语料都已在页面上声明」</td></tr>
+          <tr><td>公开站是回放</td><td>「静态回放；本地 server 才实时重算，页面会标出来」</td></tr>
+          <tr><td>agent-redteam 是层内矩阵</td><td>「不是端到端多代理运行；V12 的 expected 层缺口明写」</td></tr>
+          <tr><td>enterprise-rag 私有语料</td><td>「11994-chunk 语料不在仓内；只回放已提交结果，不重跑」</td></tr>
+          <tr><td>没有 SOTA 声明</td><td>「没有一个 Demo 声称 SOTA、生产可用或统计显著」</td></tr>
+          <tr><td>没有真实 LLM 的大规模评测</td><td>「脚本化目标用于行使 harness；真实 LLM 需要另接 target 重测」</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>
+      <strong>本页本身也是项目的一部分</strong>：零依赖静态站，无 CDN、无外链字体、
+      无 JS、无追踪脚本。
+    </p>
+    <p class="muted">
+      2026-10-22 · 四个 Demo 的源码与 CI 均在 GitHub；
+      每个页面的“构建信息”里能看到它回放的是哪一次 commit。
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
