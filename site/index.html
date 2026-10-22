@@ -28,6 +28,8 @@
     <div class="cta">
       <a class="btn primary" href="#projects">看四个 Demo</a>
       <a class="btn" href="#how">三分钟怎么读</a>
+      <a class="btn" href="#depth">看这次深挖</a>
+      <a class="btn" href="#reproduce">一条命令复现</a>
       <a class="btn" href="#boundaries">先看边界</a>
     </div>
     <p class="hint">
@@ -45,13 +47,14 @@
       <article class="card">
         <h3>1 · 先点一条失败路径</h3>
         <p>agent-platform 点 T05（工具被拒）和 T04（静默空回答）；
-        arx 比较 READABLE 与 UNREADABLE；agent-redteam 点 V09 与 V12。
-        失败路径比成功路径更能说明系统边界。</p>
+        arx 看 human floor 与 LLM judge floor 的判决翻转；agent-redteam 看 V09 的 FLAG-only
+        与 LOO 表；enterprise-rag 看 dense 的 0 条 dense-only。失败路径比成功路径更能说明边界。</p>
       </article>
       <article class="card">
         <h3>2 · 再看每个数字的来源</h3>
         <p>每个页面都把指标映射到 <code>gateway_request</code>、<code>tool_audit</code>、
-        <code>memory_item</code> 或某份结果 JSON。数字不是手写在 HTML 里的。</p>
+        <code>memory_item</code>、某份结果 JSON，或 arx 的 AuditReport 字段。
+        数字不是手写在 HTML 里的；构建脚本和测试都会检查这一点。</p>
       </article>
       <article class="card">
         <h3>3 · 最后看边界</h3>
@@ -82,10 +85,12 @@
           一条客服工单穿过网关、订单库、工具沙箱、记忆压缩、LLM 和可观测层。
           M7 端到端链路把六个模块串起来，并暴露“单模块全绿但端到端失败”的差异：
           工具被拒、静默空回答、超时降级都在一条链里被分类。
+          另有 M1–M9 模块证据台：11 个模块的 findings/refutes，65 PASS、2 条预期失败、0 条未预期失败。
         </p>
         <dl class="facts">
           <div><dt>最硬的数字</dt><dd>9/10 成功 · 压缩省 48% · pinned 10/10</dd></div>
           <div><dt>失败路径</dt><dd>1 工具被拒 · 1 静默空回答</dd></div>
+          <div><dt>模块证据</dt><dd>11 模块 · 65 PASS · 0 未预期失败</dd></div>
           <div><dt>边界</dt><dd>10 条手写工单；失败率脚本注入；延迟不是 SLO</dd></div>
         </dl>
         <p class="tags">
@@ -109,17 +114,19 @@
         </div>
         <p>
           arx 不回答“这个效应够不够大”，它先回答“这份测量有没有能力分辨这个比较”。
-          六个合成案例覆盖 READABLE / MARGINAL / UNREADABLE / UNDECIDABLE；
+          八个合成案例覆盖四种判决；另有嵌套样本敏感性网格（items × delta），
+          以及 ChaosNLI 真实数据上 human floor 与 32 名 LLM judge floor 的判决翻转。
           拒绝给数也是一个结论。
         </p>
         <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>1 READABLE · 1 MARGINAL · 1 UNREADABLE · 3 UNDECIDABLE</dd></div>
-          <div><dt>真实案例</dt><dd>ChaosNLI case study 链接到一手结果，不在页内重算</dd></div>
+          <div><dt>最硬的数字</dt><dd>1 READABLE · 1 MARGINAL · 1 UNREADABLE · 5 UNDECIDABLE</dd></div>
+          <div><dt>深挖</dt><dd>敏感性网格；human READABLE vs LLM judges UNREADABLE</dd></div>
+          <div><dt>真实案例</dt><dd>回放 ChaosNLI 审计结果，不重算语料</dd></div>
           <div><dt>边界</dt><dd>合成投票矩阵；不是真实模型排名</dd></div>
         </dl>
         <p class="tags">
           <span>Dawid-Skene</span><span>噪声地板</span><span>MDE / 功效</span>
-          <span>拒绝理由</span><span>单文件报告</span>
+          <span>敏感性网格</span><span>真实案例</span>
         </p>
         <div class="project-links">
           <a class="btn primary" href="https://aidless.github.io/arx/" target="_blank" rel="noreferrer">打开 Demo</a>
@@ -139,15 +146,17 @@
         <p>
           层内覆盖矩阵：每一格是真实 defense 类对真实攻击 payload 返回的动作。
           这里只看“哪一层接住了哪一类”，不把它冒充成端到端多代理运行。
+          另有 leave-one-layer-out 表：移除一层后，哪些攻击失去唯一的缓解、拦截或 expected hit。
         </p>
         <dl class="facts">
           <div><dt>最硬的数字</dt><dd>11/12 已削弱/拦截 · 10 BLOCK · 1 MODIFY · 1 FLAG-only</dd></div>
+          <div><dt>LOO</dt><dd>tool→V05 · output→V07 · constitutional→V03/V04</dd></div>
           <div><dt>故意留的缺口</dt><dd>V12 的 expected behavior_audit 没被 harness 行使；页面明写</dd></div>
           <div><dt>边界</dt><dd>脚本化目标；合成攻击语料；不是真实 LLM block rate</dd></div>
         </dl>
         <p class="tags">
           <span>prompt injection</span><span>tool whitelist</span><span>output filter</span>
-          <span>behavior audit</span><span>constitutional</span>
+          <span>behavior audit</span><span>leave-one-out</span>
         </p>
         <div class="project-links">
           <a class="btn primary" href="https://aidless.github.io/agent-redteam/" target="_blank" rel="noreferrer">打开 Demo</a>
@@ -166,15 +175,17 @@
         </div>
         <p>
           跑通不等于检索质量。hybrid 是主结果，dense 没赢，bigram 重排零贡献，
-          照搬的权重和 overlap 都不是最优；这些负结果比一个好看的单点分数更能说明判断。
+          照搬的权重和 overlap 都不是最优。逐题对比显示 dense 的 5 个命中全部落在 sparse
+          也命中的 extended 题上；没有任何 dense-only。这些负结果比一个好看的单点分数更能说明判断。
         </p>
         <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>hybrid 8/10 · dense 5/10 · 重排 Δrecall=0</dd></div>
-          <div><dt>变异测试</dt><dd>INVARIANT 6→0；DESIRABLE 11→8，仍有剩余</dd></div>
+          <div><dt>最硬的数字</dt><dd>hybrid 8/10 · dense 5/10 · dense-only 0</dd></div>
+          <div><dt>逐题</dt><dd>3 sparse-only 全在 baseline；2 neither；5 both 全在 extended</dd></div>
+          <div><dt>变异测试</dt><dd>INVARIANT 6→0；DESIRABLE 11→8；MR-2 修掉 4 条</dd></div>
           <div><dt>边界</dt><dd>10 题；私有语料不重跑；dense 有语言协变量</dd></div>
         </dl>
         <p class="tags">
-          <span>hybrid retrieval</span><span>dense 对比</span><span>metamorphic</span>
+          <span>hybrid retrieval</span><span>逐题对比</span><span>metamorphic 拆解</span>
           <span>权重 / overlap 消融</span><span>负结果</span>
         </p>
         <div class="project-links">
@@ -183,6 +194,101 @@
         </div>
       </article>
 
+    </div>
+  </section>
+
+  <section id="depth" class="section">
+    <h2>这次深挖补了什么</h2>
+    <div class="grid three">
+      <article class="card">
+        <h3>agent-platform · M1–M9 模块证据台</h3>
+        <p>不只 M7：11 个模块的 findings/refutes 都进了公开回放。
+        状态按每条断言末尾的 PASS/FAIL 解析；M3 的负例“预期失败”单独计数，
+        不会被误报成模块失败。当前 65 PASS、2 预期失败、0 未预期失败。</p>
+      </article>
+      <article class="card">
+        <h3>arx · 8 案例 + 敏感性 + 真实案例</h3>
+        <p>补齐 domain_mismatch 与 single_generator；加一张嵌套样本的
+        items × delta 敏感性网格；再嵌入 ChaosNLI 同一榜面的 human vs LLM judge
+        双地板对比。判决翻转不是靠一句“不可读”带过。</p>
+      </article>
+      <article class="card">
+        <h3>agent-redteam · leave-one-layer-out</h3>
+        <p>不只看每层接住了什么，还看移除一层会失去什么：
+        tool→V05、output→V07、constitutional→V03/V04；behavior 移除会丢 V06 的拦截
+        和 V08/V09 的 FLAG。表里同时给出 lost mitigation / lost flag / lost expected hit。</p>
+      </article>
+      <article class="card">
+        <h3>enterprise-rag · 逐题 + 逐 MR + 静态示例</h3>
+        <p>10 题逐题对比：dense 的 5 个命中全部落在 sparse 也命中的 extended 题上，
+        0 条 dense-only；3 条 sparse-only 全在 baseline 题。变异关系按 MR 拆开；
+        公开站还能直接点三个冻结基线示例查询。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="reproduce" class="section">
+    <h2>一条命令复现</h2>
+    <div class="bnd">
+      <table>
+        <thead><tr><th>Demo</th><th>本地实时</th><th>契约测试</th><th>CI</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>agent-platform</td>
+            <td><code>cd agent-platform &amp;&amp; python3 demo/server.py</code></td>
+            <td><code>make demo-test</code></td>
+            <td>gates</td>
+          </tr>
+          <tr>
+            <td>arx</td>
+            <td><code>cd arx &amp;&amp; python3 demo/server.py</code></td>
+            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
+            <td>CI</td>
+          </tr>
+          <tr>
+            <td>agent-redteam</td>
+            <td><code>cd agent-redteam &amp;&amp; python3 demo/server.py</code></td>
+            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
+            <td>CI + gitleaks</td>
+          </tr>
+          <tr>
+            <td>enterprise-rag</td>
+            <td><code>cd enterprise-rag &amp;&amp; python3 demo/server.py</code></td>
+            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
+            <td>CI</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="muted">
+      公开站是静态回放；本地 server 才实时重算。每个仓的 <code>demo/README.md</code>
+      都写了三分钟讲法和它能证明/不能证明的边界。
+    </p>
+  </section>
+
+  <section id="questions" class="section">
+    <h2>可能被追问</h2>
+    <div class="grid three">
+      <article class="card">
+        <h3>这些数字是真的吗？</h3>
+        <p>每个页面都有构建信息和来源字段；公开站是静态回放，本地 server 可以现场重算。
+        测试会扫描 HTML/JS，发现硬编码指标就红；构建脚本会与结果 JSON 对账。</p>
+      </article>
+      <article class="card">
+        <h3>样本这么小，能说明什么？</h3>
+        <p>不能说明生产性能。它说明链路是否自洽、判据是否可复核、边界在哪里；
+        每页的 <code>refutes</code> 都写清了样本量和合成项。</p>
+      </article>
+      <article class="card">
+        <h3>哪一条最能讲？</h3>
+        <p>M7 的失败分类、arx 的拒绝给数、redteam 的 LOO 边际贡献、
+        RAG 的 0 条 dense-only。每条都能从页面点到源字段或结果 JSON。</p>
+      </article>
+      <article class="card">
+        <h3>哪些是你自己做的？</h3>
+        <p>四个仓的代码、测试、CI 和 Pages 部署都在 GitHub；
+        这个作品集页面本身也是零依赖静态站，没有模板站生成器。</p>
+      </article>
     </div>
   </section>
 
