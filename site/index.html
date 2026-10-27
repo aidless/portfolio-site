@@ -1,365 +1,431 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI 应用 / Agent 工程 · 四个可点、可复现的 Demo</title>
-<meta name="description" content="四个公开 Demo：Agent 平台、榜单审计、红队覆盖矩阵、RAG 检索证据回放。每个数字都能追到 commit、JSON 或 SQLite 字段。">
-<link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 应用工程作品集 · Agent / Evaluation / Product</title>
+  <meta name="description" content="三条证据线：Agent 平台工程、LLM 评测工程、真实用户产品。每个项目都有输入、输出、启动入口、证据与明确边界。">
+  <meta name="theme-color" content="#f1ecdf">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a class="skip" href="#projects">跳到项目</a>
+  <a class="skip" href="#work">跳到项目</a>
 
-<header class="hero">
-  <div class="wrap">
-    <p class="kicker">求职作品集 · AI 应用 / Agent 工程 · 2026-10-22</p>
-    <h1>四个<em>可点、可复现</em>、<br>带边界的 AI 工程 Demo</h1>
-    <p class="lede">
-      每个数字都能追到一次 commit、一份 JSON 或一张 SQLite 表；
-      每个 Demo 都写明它<strong>不证明什么</strong>。
-      公开站是静态回放，本地模式可以现场重跑。
-    </p>
-    <ul class="hero-stats">
-      <li><strong>4</strong> 个公开 Demo</li>
-      <li><strong>4</strong> 个公开仓</li>
-      <li><strong>全部</strong> CI 绿 · Pages 可点</li>
-      <li><strong>0</strong> 第三方前端依赖</li>
-    </ul>
-    <div class="cta">
-      <a class="btn primary" href="#projects">看四个 Demo</a>
-      <a class="btn" href="#how">三分钟怎么读</a>
-      <a class="btn" href="#depth">看这次深挖</a>
-      <a class="btn" href="#reproduce">一条命令复现</a>
-      <a class="btn" href="#boundaries">先看边界</a>
-    </div>
-    <p class="hint">
-      本页零依赖：无 CDN、无外链字体、无 JS、无追踪脚本。
-      打印和深色模式都已适配。
-    </p>
-  </div>
-</header>
+  <header class="site-header">
+    <a class="wordmark" href="#top" aria-label="返回顶部">
+      <span class="wordmark-mark">AL</span>
+      <span>AI SYSTEMS<br>PORTFOLIO</span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#work">项目</a>
+      <a href="#ledger">证据</a>
+      <a href="#boundaries">边界</a>
+      <a href="https://github.com/aidless" target="_blank" rel="noreferrer">GitHub ↗</a>
+    </nav>
+  </header>
 
-<main class="wrap">
+  <main id="top">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-aside reveal">
+          <p class="eyebrow">2026 · AI APPLICATION ENGINEERING</p>
+          <p class="issue">ISSUE 01<br>AGENT / EVAL / PRODUCT</p>
+        </div>
 
-  <section id="how" class="section">
-    <h2>三分钟怎么读</h2>
-    <div class="grid three">
-      <article class="card">
-        <h3>1 · 先点一条失败路径</h3>
-        <p>agent-platform 点 T05（工具被拒）和 T04（静默空回答）；
-        arx 看 human floor 与 LLM judge floor 的判决翻转；agent-redteam 看 V09 的 FLAG-only
-        与 LOO 表；enterprise-rag 看 dense 的 0 条 dense-only。失败路径比成功路径更能说明边界。</p>
-      </article>
-      <article class="card">
-        <h3>2 · 再看每个数字的来源</h3>
-        <p>每个页面都把指标映射到 <code>gateway_request</code>、<code>tool_audit</code>、
-        <code>memory_item</code>、某份结果 JSON，或 arx 的 AuditReport 字段。
-        数字不是手写在 HTML 里的；构建脚本和测试都会检查这一点。</p>
-      </article>
-      <article class="card">
-        <h3>3 · 最后看边界</h3>
-        <p>每个 Demo 底部都有 <code>refutes</code>：合成数据、小样本、静态回放、
-        没有接真实 LLM 的部分都明写。没有一句“生产级”。</p>
-      </article>
-    </div>
-  </section>
-
-  <section id="projects" class="section">
-    <div class="section-head">
-      <h2>四个公开 Demo</h2>
-      <p class="muted">每个都有公开仓、可点页面和契约测试；按“能讲清的工程问题”排序。</p>
-    </div>
-
-    <div class="projects">
-
-      <article class="project" id="agent-platform">
-        <div class="project-top">
-          <span class="rank">01</span>
-          <div>
-            <h3>agent-platform</h3>
-            <p class="sub">AI 应用 / Agent 平台工程 · 11 个可运行模块 · 零第三方依赖</p>
+        <div class="hero-main">
+          <h1 class="reveal delay-1">
+            把系统做成<span class="accent">可运行</span>，<br>
+            也把边界写成<span class="underline">证据</span>。
+          </h1>
+          <p class="hero-lede reveal delay-2">
+            三条求职证据线，不是 68 个仓库的功能清单：
+            一条讲平台工程，一条讲评测与审计，一条讲真实用户产品。
+            每个入口都能看到输入、输出、失败路径，以及它<strong>不证明什么</strong>。
+          </p>
+          <div class="hero-actions reveal delay-3">
+            <a class="button button-ink" href="#work">按 3 分钟路径阅读</a>
+            <a class="text-link" href="#boundaries">先看边界 <span>↓</span></a>
           </div>
-          <span class="badge ok">公开 · CI 绿 · 可点</span>
         </div>
-        <p>
-          一条客服工单穿过网关、订单库、工具沙箱、记忆压缩、LLM 和可观测层。
-          M7 端到端链路把六个模块串起来，并暴露“单模块全绿但端到端失败”的差异：
-          工具被拒、静默空回答、超时降级都在一条链里被分类。
-          另有 M1–M9 模块证据台：11 个模块的 findings/refutes，65 PASS、2 条预期失败、0 条未预期失败。
-        </p>
-        <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>9/10 成功 · 压缩省 48% · pinned 10/10</dd></div>
-          <div><dt>失败路径</dt><dd>1 工具被拒 · 1 静默空回答</dd></div>
-          <div><dt>模块证据</dt><dd>11 模块 · 65 PASS · 0 未预期失败</dd></div>
-          <div><dt>边界</dt><dd>10 条手写工单；失败率脚本注入；延迟不是 SLO</dd></div>
-        </dl>
-        <p class="tags">
-          <span>网关 / 幂等</span><span>工具沙箱</span><span>记忆压缩</span>
-          <span>可观测</span><span>端到端</span>
-        </p>
-        <div class="project-links">
-          <a class="btn primary" href="https://aidless.github.io/agent-platform/" target="_blank" rel="noreferrer">打开 Demo</a>
-          <a class="btn" href="https://github.com/aidless/agent-platform" target="_blank" rel="noreferrer">源码</a>
-        </div>
-      </article>
 
-      <article class="project" id="arx">
-        <div class="project-top">
-          <span class="rank">02</span>
-          <div>
-            <h3>arx</h3>
-            <p class="sub">AI 评测 / 可靠性 · 榜单可读性审计 · 四种判决</p>
+        <aside class="hero-ticket reveal delay-2" aria-label="作品集摘要">
+          <p class="ticket-label">AUDIT CARD / 2026-10-27</p>
+          <dl>
+            <div>
+              <dt>旗舰证据线</dt>
+              <dd>03</dd>
+            </div>
+            <div>
+              <dt>技术补充</dt>
+              <dd>01</dd>
+            </div>
+            <div>
+              <dt>真实用户</dt>
+              <dd class="ticket-warn">00</dd>
+            </div>
+            <div>
+              <dt>生产 / SLO 声明</dt>
+              <dd>NONE</dd>
+            </div>
+          </dl>
+          <p class="ticket-note">
+            “消费级”只对 study-buddy 使用。真实用户验证尚未开始，
+            页面不会把合成 Demo 写成留存或增长。
+          </p>
+        </aside>
+      </div>
+
+      <div class="read-strip reveal delay-4">
+        <p class="strip-title">90 秒阅读路径</p>
+        <ol>
+          <li><span>01</span>先看一条失败路径，而不是成功截图。</li>
+          <li><span>02</span>再沿着指标找到 JSON、SQLite 或审计链。</li>
+          <li><span>03</span>最后读边界，判断这条证据能支撑什么岗位。</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section work-section" id="work">
+      <div class="section-heading section-heading-wide reveal">
+        <p class="eyebrow">SELECTED WORK / 三条证据线</p>
+        <h2>不是一个“AI 万能工程师”，<br>是三类可验证的交付能力。</h2>
+      </div>
+
+      <article class="project project-agent reveal">
+        <div class="project-rail">
+          <p class="project-number">01</p>
+          <p class="project-role">AGENT / PLATFORM</p>
+          <div class="project-mark">↳</div>
+        </div>
+        <div class="project-body">
+          <div class="project-intro">
+            <div>
+              <p class="project-kicker">Agent 平台工程</p>
+              <h3>agent-platform</h3>
+            </div>
+            <span class="status">可运行 · 本地实时</span>
           </div>
-          <span class="badge ok">公开 · CI 绿 · 可点</span>
-        </div>
-        <p>
-          arx 不回答“这个效应够不够大”，它先回答“这份测量有没有能力分辨这个比较”。
-          八个合成案例覆盖四种判决；另有嵌套样本敏感性网格（items × delta），
-          以及 ChaosNLI 真实数据上 human floor 与 32 名 LLM judge floor 的判决翻转。
-          拒绝给数也是一个结论。
-        </p>
-        <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>1 READABLE · 1 MARGINAL · 1 UNREADABLE · 5 UNDECIDABLE</dd></div>
-          <div><dt>深挖</dt><dd>敏感性网格；human READABLE vs LLM judges UNREADABLE</dd></div>
-          <div><dt>真实案例</dt><dd>回放 ChaosNLI 审计结果，不重算语料</dd></div>
-          <div><dt>边界</dt><dd>合成投票矩阵；不是真实模型排名</dd></div>
-        </dl>
-        <p class="tags">
-          <span>Dawid-Skene</span><span>噪声地板</span><span>MDE / 功效</span>
-          <span>敏感性网格</span><span>真实案例</span>
-        </p>
-        <div class="project-links">
-          <a class="btn primary" href="https://aidless.github.io/arx/" target="_blank" rel="noreferrer">打开 Demo</a>
-          <a class="btn" href="https://github.com/aidless/arx" target="_blank" rel="noreferrer">源码</a>
-        </div>
-      </article>
 
-      <article class="project" id="agent-redteam">
-        <div class="project-top">
-          <span class="rank">03</span>
-          <div>
-            <h3>agent-redteam</h3>
-            <p class="sub">LLM 安全 / Agent 可靠性 · 12 类攻击 × 5 层防御</p>
+          <p class="project-claim">
+            一条客服工单穿过网关、订单库、工具沙箱、记忆压缩、LLM 和可观测层。
+            这个项目专门回答：<strong>为什么单模块全绿，端到端仍会坏？</strong>
+          </p>
+
+          <a class="preview preview-agent" href="https://aidless.github.io/agent-platform/" target="_blank" rel="noreferrer" aria-label="打开 agent-platform 在线 Demo">
+            <img src="assets/agent-platform.webp" alt="agent-platform 工单链路 Demo：默认展示 T04 静默空回答" width="1200" height="833">
+            <span class="preview-label">OPEN DEMO ↗</span>
+          </a>
+
+          <dl class="project-facts">
+            <div>
+              <dt>用户</dt>
+              <dd>需要判断 Agent 链路是否真的端到端可用的平台工程师</dd>
+            </div>
+            <div>
+              <dt>输入</dt>
+              <dd>10 张确定性离线工单与 M1–M9 结果文件</dd>
+            </div>
+            <div>
+              <dt>输出</dt>
+              <dd>六步链路回放、失败分类、SQLite 字段来源与模块门禁</dd>
+            </div>
+            <div>
+              <dt>关键证据</dt>
+              <dd>T04 静默空回答、T05 工具越权拒绝、实时重跑后元数据变化</dd>
+            </div>
+          </dl>
+
+          <div class="evidence-callout">
+            <p><span>EV-01</span> Demo 契约测试 16/16；M1–M9 共 11 个模块证据卡；本地浏览器验收通过。</p>
+            <p><span>边界</span> LLM 回答由脚本上游生成；工单手写；延迟只是观测值，不是 SLO。</p>
           </div>
-          <span class="badge ok">公开 · CI 绿 · 可点</span>
-        </div>
-        <p>
-          层内覆盖矩阵：每一格是真实 defense 类对真实攻击 payload 返回的动作。
-          这里只看“哪一层接住了哪一类”，不把它冒充成端到端多代理运行。
-          另有 leave-one-layer-out 表：移除一层后，哪些攻击失去唯一的缓解、拦截或 expected hit。
-        </p>
-        <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>11/12 已削弱/拦截 · 10 BLOCK · 1 MODIFY · 1 FLAG-only</dd></div>
-          <div><dt>LOO</dt><dd>tool→V05 · output→V07 · constitutional→V03/V04</dd></div>
-          <div><dt>故意留的缺口</dt><dd>V12 的 expected behavior_audit 没被 harness 行使；页面明写</dd></div>
-          <div><dt>边界</dt><dd>脚本化目标；合成攻击语料；不是真实 LLM block rate</dd></div>
-        </dl>
-        <p class="tags">
-          <span>prompt injection</span><span>tool whitelist</span><span>output filter</span>
-          <span>behavior audit</span><span>leave-one-out</span>
-        </p>
-        <div class="project-links">
-          <a class="btn primary" href="https://aidless.github.io/agent-redteam/" target="_blank" rel="noreferrer">打开 Demo</a>
-          <a class="btn" href="https://github.com/aidless/agent-redteam" target="_blank" rel="noreferrer">源码</a>
-        </div>
-      </article>
 
-      <article class="project" id="enterprise-rag">
-        <div class="project-top">
-          <span class="rank">04</span>
-          <div>
-            <h3>enterprise-rag</h3>
-            <p class="sub">RAG / 检索工程 · 负结果与消融 · 结果回放 + 冻结基线查询</p>
+          <div class="project-links">
+            <a class="button button-rust" href="https://aidless.github.io/agent-platform/" target="_blank" rel="noreferrer">打开 Demo</a>
+            <a href="https://github.com/aidless/agent-platform" target="_blank" rel="noreferrer">源码 ↗</a>
+            <a href="https://github.com/aidless/agent-platform/actions/workflows/gates.yml" target="_blank" rel="noreferrer">CI ↗</a>
+            <a href="#agent-runbook">90 秒讲法</a>
           </div>
-          <span class="badge ok">公开 · CI 绿 · 可点</span>
-        </div>
-        <p>
-          跑通不等于检索质量。hybrid 是主结果，dense 没赢，bigram 重排零贡献，
-          照搬的权重和 overlap 都不是最优。逐题对比显示 dense 的 5 个命中全部落在 sparse
-          也命中的 extended 题上；没有任何 dense-only。这些负结果比一个好看的单点分数更能说明判断。
-        </p>
-        <dl class="facts">
-          <div><dt>最硬的数字</dt><dd>hybrid 8/10 · dense 5/10 · dense-only 0</dd></div>
-          <div><dt>逐题</dt><dd>3 sparse-only 全在 baseline；2 neither；5 both 全在 extended</dd></div>
-          <div><dt>变异测试</dt><dd>INVARIANT 6→0；DESIRABLE 11→8；MR-2 修掉 4 条</dd></div>
-          <div><dt>边界</dt><dd>10 题；私有语料不重跑；dense 有语言协变量</dd></div>
-        </dl>
-        <p class="tags">
-          <span>hybrid retrieval</span><span>逐题对比</span><span>metamorphic 拆解</span>
-          <span>权重 / overlap 消融</span><span>负结果</span>
-        </p>
-        <div class="project-links">
-          <a class="btn primary" href="https://aidless.github.io/enterprise-rag/" target="_blank" rel="noreferrer">打开 Demo</a>
-          <a class="btn" href="https://github.com/aidless/enterprise-rag" target="_blank" rel="noreferrer">源码</a>
+          <div class="inline-runbook" id="agent-runbook">
+            <p><strong>90 秒：</strong>T04 的空回答 → T05 的工具拒绝 → 点重跑，看构建元数据变化 → 读页面底部 refutes。</p>
+          </div>
         </div>
       </article>
 
-    </div>
-  </section>
+      <article class="project project-llm reveal">
+        <div class="project-rail">
+          <p class="project-number">02</p>
+          <p class="project-role">LLM / EVALUATION</p>
+          <div class="project-mark">↳</div>
+        </div>
+        <div class="project-body">
+          <div class="project-intro">
+            <div>
+              <p class="project-kicker">LLM 评测工程</p>
+              <h3>llm-lab</h3>
+            </div>
+            <span class="status status-teal">可复现 · 零 Key Demo</span>
+          </div>
 
-  <section id="depth" class="section">
-    <h2>这次深挖补了什么</h2>
-    <div class="grid three">
-      <article class="card">
-        <h3>agent-platform · M1–M9 模块证据台</h3>
-        <p>不只 M7：11 个模块的 findings/refutes 都进了公开回放。
-        状态按每条断言末尾的 PASS/FAIL 解析；M3 的负例“预期失败”单独计数，
-        不会被误报成模块失败。当前 65 PASS、2 预期失败、0 未预期失败。</p>
-      </article>
-      <article class="card">
-        <h3>arx · 8 案例 + 敏感性 + 真实案例</h3>
-        <p>补齐 domain_mismatch 与 single_generator；加一张嵌套样本的
-        items × delta 敏感性网格；再嵌入 ChaosNLI 同一榜面的 human vs LLM judge
-        双地板对比。判决翻转不是靠一句“不可读”带过。</p>
-      </article>
-      <article class="card">
-        <h3>agent-redteam · leave-one-layer-out</h3>
-        <p>不只看每层接住了什么，还看移除一层会失去什么：
-        tool→V05、output→V07、constitutional→V03/V04；behavior 移除会丢 V06 的拦截
-        和 V08/V09 的 FLAG。表里同时给出 lost mitigation / lost flag / lost expected hit。</p>
-      </article>
-      <article class="card">
-        <h3>enterprise-rag · 逐题 + 逐 MR + 静态示例</h3>
-        <p>10 题逐题对比：dense 的 5 个命中全部落在 sparse 也命中的 extended 题上，
-        0 条 dense-only；3 条 sparse-only 全在 baseline 题。变异关系按 MR 拆开；
-        公开站还能直接点三个冻结基线示例查询。</p>
-      </article>
-    </div>
-  </section>
+          <p class="project-claim">
+            计划任务、调用模型、验证输出、写入哈希链审计日志。
+            无 API Key 的离线模式先证明<strong>编排与审计可以重放</strong>，
+            不用一个漂亮分数冒充模型质量。
+          </p>
 
-  <section id="reproduce" class="section">
-    <h2>一条命令复现</h2>
-    <div class="bnd">
-      <table>
-        <thead><tr><th>Demo</th><th>本地实时</th><th>契约测试</th><th>CI</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>agent-platform</td>
-            <td><code>cd agent-platform &amp;&amp; python3 demo/server.py</code></td>
-            <td><code>make demo-test</code></td>
-            <td>gates</td>
-          </tr>
-          <tr>
-            <td>arx</td>
-            <td><code>cd arx &amp;&amp; python3 demo/server.py</code></td>
-            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
-            <td>CI</td>
-          </tr>
-          <tr>
-            <td>agent-redteam</td>
-            <td><code>cd agent-redteam &amp;&amp; python3 demo/server.py</code></td>
-            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
-            <td>CI + gitleaks</td>
-          </tr>
-          <tr>
-            <td>enterprise-rag</td>
-            <td><code>cd enterprise-rag &amp;&amp; python3 demo/server.py</code></td>
-            <td><code>python3 -m unittest demo/test_demo.py -v</code></td>
-            <td>CI</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <p class="muted">
-      公开站是静态回放；本地 server 才实时重算。每个仓的 <code>demo/README.md</code>
-      都写了三分钟讲法和它能证明/不能证明的边界。
-    </p>
-  </section>
+          <a class="preview preview-llm" href="evidence/llm-lab-report.html" target="_blank" rel="noreferrer" aria-label="打开 llm-lab 离线报告">
+            <img src="assets/llm-lab.webp" alt="llm-lab 离线报告：5 个步骤全部 PASS，总成本 0 美元" width="1080" height="900">
+            <span class="preview-label">OPEN REPORT ↗</span>
+          </a>
 
-  <section id="questions" class="section">
-    <h2>可能被追问</h2>
-    <div class="grid three">
-      <article class="card">
-        <h3>这些数字是真的吗？</h3>
-        <p>每个页面都有构建信息和来源字段；公开站是静态回放，本地 server 可以现场重算。
-        测试会扫描 HTML/JS，发现硬编码指标就红；构建脚本会与结果 JSON 对账。</p>
-      </article>
-      <article class="card">
-        <h3>样本这么小，能说明什么？</h3>
-        <p>不能说明生产性能。它说明链路是否自洽、判据是否可复核、边界在哪里；
-        每页的 <code>refutes</code> 都写清了样本量和合成项。</p>
-      </article>
-      <article class="card">
-        <h3>哪一条最能讲？</h3>
-        <p>M7 的失败分类、arx 的拒绝给数、redteam 的 LOO 边际贡献、
-        RAG 的 0 条 dense-only。每条都能从页面点到源字段或结果 JSON。</p>
-      </article>
-      <article class="card">
-        <h3>哪些是你自己做的？</h3>
-        <p>四个仓的代码、测试、CI 和 Pages 部署都在 GitHub；
-        这个作品集页面本身也是零依赖静态站，没有模板站生成器。</p>
-      </article>
-    </div>
-  </section>
+          <dl class="project-facts">
+            <div>
+              <dt>用户</dt>
+              <dd>需要本地评测、成本记录与可追溯证据的 LLM 工程师</dd>
+            </div>
+            <div>
+              <dt>输入</dt>
+              <dd>任务目标、模型配置、Verifier 与确定性离线 Provider</dd>
+            </div>
+            <div>
+              <dt>输出</dt>
+              <dd>result.json、独立 HTML 报告、5 行哈希链 SQLite 审计日志</dd>
+            </div>
+            <div>
+              <dt>关键证据</dt>
+              <dd>5/5 步骤 PASS；5 行审计链 OK；成本 $0.000000；命令退出码 0</dd>
+            </div>
+          </dl>
 
-  <section id="method" class="section">
-    <h2>方法学：四个 Demo 共用的一套判据</h2>
-    <div class="grid three">
-      <article class="card">
-        <h3>数字必须能回读</h3>
-        <p>页面不手写指标。构建脚本从 SQLite / 结果 JSON 生成 payload；
-        测试扫描 HTML/JS，发现硬编码的指标就红。</p>
+          <div class="evidence-callout">
+            <p><span>EV-02</span> 产品包 391 passed / 2 skipped；根自演化套件 106 passed；Ruff、Mypy 通过。</p>
+            <p><span>边界</span> offline-demo-v1 是测试夹具，不是 LLM；它证明管线，不证明模型质量或榜单能力。</p>
+          </div>
+
+          <div class="project-links">
+            <a class="button button-teal" href="evidence/llm-lab-report.html" target="_blank" rel="noreferrer">看真实报告</a>
+            <a href="evidence/llm-lab-result.json" target="_blank" rel="noreferrer">result.json ↗</a>
+            <a href="https://github.com/aidless/llm-lab" target="_blank" rel="noreferrer">源码 ↗</a>
+            <a href="https://github.com/aidless/llm-lab/actions/workflows/test.yml" target="_blank" rel="noreferrer">CI ↗</a>
+            <a href="#llm-runbook">90 秒讲法</a>
+          </div>
+          <div class="inline-runbook" id="llm-runbook">
+            <p><strong>90 秒：</strong><code>llm-lab demo</code> → 5 个 PASS → 5 行审计链 → 读“不证明模型质量”的边界。</p>
+          </div>
+        </div>
       </article>
-      <article class="card">
-        <h3>静态回放 + 本地实时</h3>
-        <p>公开站是提交进仓库的确定性构建，带 commit 和时间；
-        本地 server 可以现场重跑。静态与实时在页面上有明确标识。</p>
+
+      <article class="project project-study reveal">
+        <div class="project-rail">
+          <p class="project-number">03</p>
+          <p class="project-role">PRODUCT / USER</p>
+          <div class="project-mark">↳</div>
+        </div>
+        <div class="project-body">
+          <div class="project-intro">
+            <div>
+              <p class="project-kicker">真实用户产品</p>
+              <h3>study-buddy</h3>
+            </div>
+            <span class="status status-gold">Demo 通过 · 用户待验证</span>
+          </div>
+
+          <p class="project-claim">
+            给考研长线备考者用的移动端督学 PWA：打开就有今日建议，
+            能勾任务、开番茄钟、看进度，也保留树洞与双人陪伴。
+            这不是“又一个功能很多的 App”，而是<strong>一个等待陌生人检验的首次使用路径</strong>。
+          </p>
+
+          <a class="preview preview-study" href="https://aidless.github.io/study-buddy/?demo=1" target="_blank" rel="noreferrer" aria-label="打开 study-buddy 免注册 Demo">
+            <img src="assets/study-buddy.webp" alt="study-buddy 手机端今日任务页面，包含今日建议、任务和打卡" width="1200" height="833">
+            <span class="preview-label">TRY DEMO ↗</span>
+          </a>
+
+          <dl class="project-facts">
+            <div>
+              <dt>用户</dt>
+              <dd>需要长线陪伴与低决策负担的考研备考者</dd>
+            </div>
+            <div>
+              <dt>输入</dt>
+              <dd>今日任务、番茄钟、自测、打卡，以及本地/云端二选一的数据路径</dd>
+            </div>
+            <div>
+              <dt>输出</dt>
+              <dd>今日行动列表、专注记录、30 天热力图、阶段目标与隐私边界</dd>
+            </div>
+            <div>
+              <dt>关键证据</dt>
+              <dd>11 项单测 + 题库校验全绿；浏览器任务状态持久化；手机无横向溢出</dd>
+            </div>
+          </dl>
+
+          <div class="evidence-callout evidence-callout-warn">
+            <p><span>USER-00</span> 真实用户 0；首任务完成 0/0；48 小时回访 0/0。招募尚未开始。</p>
+            <p><span>边界</span> 本地验收使用合成数据；云端同步、真实 iOS/Android 稳定性、留存与消费级通过均未验证。</p>
+          </div>
+
+          <div class="project-links">
+            <a class="button button-gold" href="https://aidless.github.io/study-buddy/?demo=1" target="_blank" rel="noreferrer">免注册体验</a>
+            <a href="https://github.com/aidless/study-buddy" target="_blank" rel="noreferrer">源码 ↗</a>
+            <a href="#boundaries">用户状态 ↓</a>
+            <a href="https://github.com/aidless/study-buddy/actions/workflows/ci.yml" target="_blank" rel="noreferrer">CI ↗</a>
+            <a href="#study-runbook">90 秒讲法</a>
+          </div>
+          <div class="inline-runbook" id="study-runbook">
+            <p><strong>90 秒：</strong>打开今日建议 → 勾掉 408 任务 → 看专注与 30 天热力图 → 明确“0 个真实用户”。</p>
+          </div>
+        </div>
       </article>
-      <article class="card">
-        <h3>边界和结果同权重</h3>
-        <p>每个页面直接渲染该仓自己的 <code>refutes</code>。
-        “这个 Demo 不证明什么”不是页脚免责声明，是一等公民。</p>
-      </article>
-    </div>
-  </section>
+    </section>
 
-  <section id="research" class="section">
-    <h2>研究底账</h2>
-    <p>
-      LLM 评测 / 多智能体方向的 arXiv 预印本与公开代码：
-      <a href="https://arxiv.org/a/liu_z_28" target="_blank" rel="noreferrer">arXiv 作者页</a>
-      ·
-      <a href="https://github.com/aidless" target="_blank" rel="noreferrer">GitHub @aidless</a>
-    </p>
-    <p class="muted">
-      这里只放能公开点开的产物；论文、项目数量和名次不当作 Demo 的替代品。
-    </p>
-  </section>
+    <section class="supplement reveal" aria-labelledby="supplement-title">
+      <div class="supplement-index">+</div>
+      <div>
+        <p class="eyebrow">TECHNICAL SUPPLEMENT</p>
+        <h2 id="supplement-title">rag-qa：把检索和生成拆开评</h2>
+      </div>
+      <p>
+        BM25 ⊕ 向量混合检索、强制引用、证据不足拒答，16 题正负样本。
+        离线复测 structure 策略 recall@5 为 <strong>10/12</strong>，
+        fixed 为 <strong>9/12</strong>；负样本拒答两组均为 <strong>4/4</strong>。
+      </p>
+      <div class="supplement-links">
+        <a href="https://github.com/aidless/rag-qa" target="_blank" rel="noreferrer">源码 ↗</a>
+        <a href="https://github.com/aidless/rag-qa/actions/workflows/ci.yml" target="_blank" rel="noreferrer">CI ↗</a>
+        <span>边界：10/12 只来自 16 题离线 hash 编码器，不是语义检索质量上限。</span>
+      </div>
+    </section>
 
-  <section id="boundaries" class="section">
-    <h2>诚实边界（面试前必读）</h2>
-    <p class="muted">说一句夸大，前面全部作废。这些线是主动划的。</p>
-    <div class="bnd">
-      <table>
-        <thead><tr><th>缺口</th><th>我的表述</th></tr></thead>
-        <tbody>
-          <tr><td>不是生产系统</td><td>「四个都是 Demo；没有真实用户流量、SLO 或线上值班」</td></tr>
-          <tr><td>样本量小</td><td>「agent-platform 10 条工单；enterprise-rag 10 题；arx 6 个合成案例」</td></tr>
-          <tr><td>部分数据是合成的</td><td>「合成订单、合成投票矩阵、手写攻击语料都已在页面上声明」</td></tr>
-          <tr><td>公开站是回放</td><td>「静态回放；本地 server 才实时重算，页面会标出来」</td></tr>
-          <tr><td>agent-redteam 是层内矩阵</td><td>「不是端到端多代理运行；V12 的 expected 层缺口明写」</td></tr>
-          <tr><td>enterprise-rag 私有语料</td><td>「11994-chunk 语料不在仓内；只回放已提交结果，不重跑」</td></tr>
-          <tr><td>没有 SOTA 声明</td><td>「没有一个 Demo 声称 SOTA、生产可用或统计显著」</td></tr>
-          <tr><td>没有真实 LLM 的大规模评测</td><td>「脚本化目标用于行使 harness；真实 LLM 需要另接 target 重测」</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+    <section class="section ledger-section" id="ledger">
+      <div class="section-heading reveal">
+        <p class="eyebrow">EVIDENCE LEDGER / 证据账本</p>
+        <h2>数字从哪里来，失败在哪里，<br>一眼能追到。</h2>
+        <p class="section-note">本次本地核验时间：2026-10-27。公开站的状态与本地新改动分开表述。</p>
+      </div>
 
-</main>
+      <div class="ledger reveal" role="table" aria-label="项目证据账本">
+        <div class="ledger-row ledger-head" role="row">
+          <span role="columnheader">证据线</span>
+          <span role="columnheader">已运行</span>
+          <span role="columnheader">结果</span>
+          <span role="columnheader">不能推出</span>
+        </div>
+        <div class="ledger-row" role="row">
+          <strong role="cell">agent-platform</strong>
+          <span role="cell" data-label="已运行">Demo 契约 + gates + Chromium</span>
+          <span role="cell" class="pass" data-label="结果">16/16 · PASS</span>
+          <span role="cell" data-label="不能推出">真实客服流量、真实 LLM 可用率、SLO</span>
+        </div>
+        <div class="ledger-row" role="row">
+          <strong role="cell">llm-lab</strong>
+          <span role="cell" data-label="已运行">Ruff + Mypy + Pytest + CLI Demo</span>
+          <span role="cell" class="pass" data-label="结果">391 passed · audit OK</span>
+          <span role="cell" data-label="不能推出">模型质量、榜单名次、生产可靠性</span>
+        </div>
+        <div class="ledger-row" role="row">
+          <strong role="cell">study-buddy</strong>
+          <span role="cell" data-label="已运行">单测 + 题库 + 构建 + Chromium</span>
+          <span role="cell" class="pass" data-label="结果">11 passed · ALL_OK</span>
+          <span role="cell" data-label="不能推出">真实用户可完成、留存、消费级通过</span>
+        </div>
+        <div class="ledger-row" role="row">
+          <strong role="cell">rag-qa</strong>
+          <span role="cell" data-label="已运行">Pytest + --offline 复测</span>
+          <span role="cell" class="pass" data-label="结果">6 passed · 10/12</span>
+          <span role="cell" data-label="不能推出">真实 embedding、在线生成质量、30+ 题泛化</span>
+        </div>
+      </div>
 
-<footer class="foot">
-  <div class="wrap">
-    <p>
-      <strong>本页本身也是项目的一部分</strong>：零依赖静态站，无 CDN、无外链字体、
-      无 JS、无追踪脚本。
-    </p>
-    <p class="muted">
-      2026-10-22 · 四个 Demo 的源码与 CI 均在 GitHub；
-      每个页面的“构建信息”里能看到它回放的是哪一次 commit。
-    </p>
-  </div>
-</footer>
+      <div class="method-grid">
+        <article class="method-card reveal">
+          <span>01 / RUN</span>
+          <h3>命令可重放</h3>
+          <p>每条结论都对应本地命令、退出码与落盘产物；不是凭记忆复述。</p>
+        </article>
+        <article class="method-card reveal">
+          <span>02 / TRACE</span>
+          <h3>结果可回读</h3>
+          <p>JSON、SQLite、哈希链、截图或浏览器状态至少保留一种可检查证据。</p>
+        </article>
+        <article class="method-card reveal">
+          <span>03 / REFUTE</span>
+          <h3>边界可证伪</h3>
+          <p>合成数据、小样本、离线 Provider 和 0 个真实用户都主动写在结果旁边。</p>
+        </article>
+      </div>
+    </section>
 
+    <section class="section boundaries-section" id="boundaries">
+      <div class="section-heading section-heading-wide reveal">
+        <p class="eyebrow">HONEST BOUNDARIES / 说清楚</p>
+        <h2>面试里最贵的不是“会”，<br>是把不会的地方说准。</h2>
+      </div>
+
+      <div class="boundary-grid">
+        <article class="boundary boundary-red reveal">
+          <p class="boundary-label">消费级状态</p>
+          <h3>0 个真实用户，<br>没有留存结论。</h3>
+          <p>study-buddy 目前只有本地合成 Demo 验收。10 人内测的招募、首任务、48 小时回访都是 0/0。</p>
+        </article>
+        <article class="boundary boundary-teal reveal">
+          <p class="boundary-label">评测状态</p>
+          <h3>审计链可验证，<br>不等于模型更强。</h3>
+          <p>llm-lab 的离线 Provider 是固定响应夹具。真实模型比较需要另配 Provider、预算与新的评测计划。</p>
+        </article>
+        <article class="boundary boundary-ink reveal">
+          <p class="boundary-label">平台状态</p>
+          <h3>端到端链路真实，<br>上游仍是脚本。</h3>
+          <p>agent-platform 的失败注入、订单库、工具白名单与 SQLite 回读是真实代码；LLM 内容和工单不是生产数据。</p>
+        </article>
+        <article class="boundary boundary-gold reveal">
+          <p class="boundary-label">岗位表述</p>
+          <h3>做 AI 应用工程，<br>不冒充研究科学家。</h3>
+          <p>研究仓库作为背景证据，不用论文数量替代可运行系统、评测纪律和产品判断。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section qa-section">
+      <div class="section-heading section-heading-wide reveal">
+        <p class="eyebrow">INTERVIEW NOTES / 可能被追问</p>
+        <h2>四个问题，不看稿也能答。</h2>
+      </div>
+      <div class="qa-list">
+        <details class="reveal">
+          <summary>为什么 68 个仓库只保留 3 条旗舰线？</summary>
+          <p>面试官不是在数仓库，而是在判断能否把问题、工程、证据和边界讲闭环。68 个半成品会把主线稀释；其余仓库改为研究背景和技术广度。</p>
+        </details>
+        <details class="reveal">
+          <summary>哪个项目最能代表你？</summary>
+          <p>agent-platform 代表系统拆解与失败分类；llm-lab 代表评测、审计和可复现；study-buddy 代表用户路径与产品克制。三条线对应岗位里的三种日常。</p>
+        </details>
+        <details class="reveal">
+          <summary>没有真实用户，为什么还放产品项目？</summary>
+          <p>因为产品判断和用户验证是 AI 应用工程师的重要能力，同时必须把 0 写出来。这个项目现在证明的是首次路径、构建质量、隐私选项和验证计划，不是留存。</p>
+        </details>
+        <details class="reveal">
+          <summary>下一步最应该补哪条证据？</summary>
+          <p>优先完成 study-buddy 的真实 10 人内测并修前三项摩擦；其次为 llm-lab 接一个成本受控的真实模型对照。两项都需要新的外部授权，不在本地静态证据里冒充完成。</p>
+        </details>
+      </div>
+    </section>
+
+    <section class="closing reveal">
+      <p class="eyebrow">END NOTE</p>
+      <h2>作品集不是把所有东西做得很满，<br>是让每条主张都经得起追问。</h2>
+      <div class="closing-links">
+        <a class="button button-ink" href="https://github.com/aidless" target="_blank" rel="noreferrer">GitHub @aidless ↗</a>
+        <a class="text-link" href="https://arxiv.org/a/liu_z_28" target="_blank" rel="noreferrer">研究背景 ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p><strong>AI Systems Portfolio</strong> · 零依赖静态页 · 无 CDN、无追踪脚本</p>
+    <p>Updated 2026-10-27 · Public deployments and local acceptance are labeled separately.</p>
+    <a href="#top">回到顶部 ↑</a>
+  </footer>
 </body>
 </html>

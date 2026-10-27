@@ -1,0 +1,79 @@
+{
+  "run_id": "df0c8ed1379c",
+  "intent_id": "df0c8ed1379c",
+  "goal": "evaluate offline demo: return a deterministic auditable answer",
+  "model": "offline-demo-v1",
+  "verifier": "structural",
+  "steps": 5,
+  "plan_template": "eval-model",
+  "steps_detail": [
+    {
+      "action": "load_prompt_set",
+      "prompt": "evaluate offline demo: return a deterministic auditable answer",
+      "output": "OFFLINE_DEMO_PASS prompt_sha256=7633cd95d0df1824 verification=deterministic route=offline",
+      "model": "offline-demo-v1",
+      "verdict": {
+        "label": "pass",
+        "reason": "non-empty output"
+      },
+      "tokens": 37,
+      "cost": 0.0,
+      "metric_check": null
+    },
+    {
+      "action": "call_model",
+      "prompt": "evaluate offline demo: return a deterministic auditable answer",
+      "output": "OFFLINE_DEMO_PASS prompt_sha256=7633cd95d0df1824 verification=deterministic route=offline",
+      "model": "offline-demo-v1",
+      "verdict": {
+        "label": "pass",
+        "reason": "non-empty output"
+      },
+      "tokens": 37,
+      "cost": 0.0,
+      "metric_check": null
+    },
+    {
+      "action": "collect_outputs",
+      "prompt": "evaluate offline demo: return a deterministic auditable answer",
+      "output": "OFFLINE_DEMO_PASS prompt_sha256=7633cd95d0df1824 verification=deterministic route=offline",
+      "model": "offline-demo-v1",
+      "verdict": {
+        "label": "pass",
+        "reason": "non-empty output"
+      },
+      "tokens": 37,
+      "cost": 0.0,
+      "metric_check": null
+    },
+    {
+      "action": "run_verifier",
+      "prompt": "evaluate offline demo: return a deterministic auditable answer",
+      "output": "OFFLINE_DEMO_PASS prompt_sha256=7633cd95d0df1824 verification=deterministic route=offline",
+      "model": "offline-demo-v1",
+      "verdict": {
+        "label": "pass",
+        "reason": "non-empty output"
+      },
+      "tokens": 37,
+      "cost": 0.0,
+      "metric_check": null
+    },
+    {
+      "action": "aggregate_metrics",
+      "prompt": "evaluate offline demo: return a deterministic auditable answer",
+      "output": "OFFLINE_DEMO_PASS prompt_sha256=7633cd95d0df1824 verification=deterministic route=offline",
+      "model": "offline-demo-v1",
+      "verdict": {
+        "label": "pass",
+        "reason": "non-empty output"
+      },
+      "tokens": 37,
+      "cost": 0.0,
+      "metric_check": null
+    }
+  ],
+  "total_tokens": 185,
+  "total_cost_usd": 0.0,
+  "all_passed": true
+}
