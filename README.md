@@ -34,6 +34,41 @@ python3 tools/check_site.py
 检查器验证三张项目卡、证据数字、全部本地资源、零 JavaScript、零 CDN、
 响应式/打印/减少动效契约，以及 llm-lab 报告中的 5 个 PASS 标记。
 
+## 测试
+
+```bash
+cd portfolio-site
+python3 tools/check_site.py    # 3 行 PASS（site contract / zero-JS-CDN / llm-lab evidence）
+```
+
+本仓库无 pytest 套件——`tools/check_site.py` 是唯一的自动验证入口（零依赖、
+确定性、可离线跑）。它断言：
+
+- **site contract**：3 张旗舰卡、4 行证据、全部本地资源、边界声明存在。
+- **zero JS/CDN**：零 `<script>`、零外部资源、响应式/打印/减少动效 CSS 契约。
+- **llm-lab evidence**：报告中 5/5 PASS、成本 $0.000000、5 个可见报告徽章。
+
+## 证明什么 / 不证明什么
+
+**证明：** 站点按静态契约构建，检查器在本地通过；三张旗舰卡与证据数字存在；
+零外部依赖与零 JS 的静态契约成立；llm-lab 离线报告的 5 个 PASS 标记可见。
+
+**不证明：** 任何真实用户留存（study-buddy 当前真实用户为 **0**，48 小时回访
+**0/0**）；生产可用率或 SLO（站点未接入任何监控）；截图只证明视觉与交互路径，
+不证明用户留存或生产可靠性。所有合成 Demo、离线 Provider、小样本评测与未
+验证项都在页面中主动标注。
+
+## 复现
+
+```bash
+cd portfolio-site
+python3 tools/check_site.py    # 3 行 PASS
+python3 -m http.server 8020 -d site   # 浏览器验收：http://127.0.0.1:8020/
+```
+
+`3` 张旗舰卡、`4` 行证据、`5/5` PASS、`$0.000000` 成本均来自
+`tools/check_site.py` 对当前 `site/` 的实际断言输出，可在此树复算。
+
 ## 图片与证据
 
 `site/assets/` 中三张预览图来自本机 Chromium 截图后转成 WebP；不包含账号、
