@@ -48,6 +48,15 @@ python3 tools/check_site.py    # 3 行 PASS（site contract / zero-JS-CDN / llm-
 - **zero JS/CDN**：零 `<script>`、零外部资源、响应式/打印/减少动效 CSS 契约。
 - **llm-lab evidence**：报告中 5/5 PASS、成本 $0.000000、5 个可见报告徽章。
 
+## Fail-closed guarantee
+
+`tools/check_site.py` returns **exit 1** on any contract violation — missing file,
+missing element id, stale four-demo copy (`FORBIDDEN_TEXT`), wrong flagship-card count,
+a `<script>` tag, an external resource, an invalid llm-lab result JSON, or a forbidden
+pattern (API key `sk-...`, GitHub token `gh[pousr]_...`, absolute home path `/home/`,
+`/Users/`, `C:\`). A bad site produces **FAIL**, never a silent pass. It is the only
+automated verification entry point (zero-dependency, deterministic, offline-runnable).
+
 ## 证明什么 / 不证明什么
 
 **证明：** 站点按静态契约构建，检查器在本地通过；三张旗舰卡与证据数字存在；
