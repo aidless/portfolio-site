@@ -1,5 +1,7 @@
 # AI 应用工程作品集
 
+[![CI](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml/badge.svg)](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml)
+
 这是一个零依赖静态作品集，用三条旗舰证据线说明 AI 应用工程能力：
 
 | 证据线 | 证明什么 | 不证明什么 |
