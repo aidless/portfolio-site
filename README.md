@@ -61,6 +61,8 @@ MIT
 
 ## U1 results table (recomputed 2026-11-11)
 
+<!-- figure: docs/screenshot.png (existing screenshot; a fresh capture is NOT YET MEASURED in this pass) -->
+
 All values below were recomputed from the committed evidence JSON, and the site
 checker was executed locally for this pass.
 
