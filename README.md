@@ -1,5 +1,7 @@
 # AI 应用工程作品集
 
+> **English TL;DR**: A zero-dependency static portfolio site presenting three flagship evidence lines (agent-platform, llm-lab, study-buddy) with explicit boundaries. Its site contract checker validates cards, evidence numbers, local assets, zero JavaScript/CDN and the 5/5 offline PASS markers; the embedded llm-lab evidence is an offline demo, not a model-quality claim.
+
 [![CI](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml/badge.svg)](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml)
 
 **在线地址**：https://aidless.github.io/portfolio-site/ （GitHub Pages，2026-11-10 实测 HTTP 200）
@@ -130,3 +132,35 @@ GitHub Pages workflow 会在推送后先运行静态检查，再发布 `site/`�
 ## License
 
 MIT
+
+## U1 results table (recomputed 2026-11-11)
+
+<!-- figure: docs/screenshot.png (existing screenshot; a fresh capture is NOT YET MEASURED in this pass) -->
+
+All values below were recomputed from the committed evidence JSON, and the site
+checker was executed locally for this pass.
+
+| Result | Value | Source (path:line) |
+|---|---|---|
+| Evidence run id | `df0c8ed1379c` | `site/evidence/llm-lab-result.json:2` |
+| Model (offline) | `offline-demo-v1` | `site/evidence/llm-lab-result.json:5` |
+| Verifier | `structural` | `site/evidence/llm-lab-result.json:6` |
+| Steps recorded | 5 | `site/evidence/llm-lab-result.json:7` |
+| Step detail entries | 5 | `site/evidence/llm-lab-result.json:9` |
+| Verdict labels | pass=5 | `site/evidence/llm-lab-result.json:16` (counted from `steps_detail[].verdict.label`) |
+| Total tokens | 185 | `site/evidence/llm-lab-result.json:76` |
+| Total cost (USD) | 0.0 | `site/evidence/llm-lab-result.json:77` |
+
+**Quickstart command actually executed for this pass** (exit code 0):
+
+```bash
+python3 tools/check_site.py
+# PASS  site contract: 3 flagship cards, 4 evidence rows, local assets, boundaries
+# PASS  zero JavaScript, zero CDN, responsive/print/reduced-motion CSS contracts
+# PASS  llm-lab evidence: 5/5 PASS, $0.000000, 5 visible report badges
+```
+
+The screenshot already embedded above is a real local headless-browser capture;
+no new figure was fabricated for this pass. The offline provider gives
+`model: offline-demo-v1` and `total_cost_usd: 0.0` — cost and
+quality numbers here are demo artifacts, not production measurements.
