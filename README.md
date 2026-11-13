@@ -1,5 +1,13 @@
 # AI 应用工程作品集
 
+[![CI](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml/badge.svg)](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml)
+
+**在线地址**：https://aidless.github.io/portfolio-site/ （GitHub Pages，2026-11-10 实测 HTTP 200）
+
+![站点截图](docs/screenshot.png)
+
+*截图：2026-11-10 本地 `python3 -m http.server 8020 -d site` 后 Chrome headless 1280×3200 实截（首屏 + agent-platform 卡 + llm-lab 报告节）。页面淡入动画未在 headless 中完全触发，成图偏浅，属如实状态。*
+
 这是一个零依赖静态作品集，用三条旗舰证据线说明 AI 应用工程能力：
 
 | 证据线 | 证明什么 | 不证明什么 |
