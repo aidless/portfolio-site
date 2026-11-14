@@ -164,3 +164,37 @@ The screenshot already embedded above is a real local headless-browser capture;
 no new figure was fabricated for this pass. The offline provider gives
 `model: offline-demo-v1` and `total_cost_usd: 0.0` — cost and
 quality numbers here are demo artifacts, not production measurements.
+
+## 验收标准与复算
+
+本仓判为合格的条件是 `python3 eval/run_cases.py` 通过率必须为 100%（20/20），且 `make eval` 退出码必须为 0；任何一条失败即判为不合格。题库 `eval/cases.jsonl` 共 20 条，全部 `expr/raises` 题都真调本仓 `tools/check_site.py` 的 API 或真解析 `site/evidence/` 下的数据文件，期望值是现算的，不是抄文档。
+
+| axis | 条数 | 测什么 |
+|---|---|---|
+| `contract/counts` | 3 | 元素 id 齐备、3 张旗舰卡、3 张预览图 |
+| `contract/text` | 3 | 必需文案齐备、杜绝过期四 Demo 文案、4 条 FAQ |
+| `resources/local` | 3 | 本地资源存在、越出 `site/` 的路径被拒、外链不误判 |
+| `evidence/json` | 3 | `llm-lab-result.json` 的 steps / tokens / cost |
+| `evidence/verdicts` | 3 | `all_passed`、5 条 `pass` verdict、报告 5 个 PASS 徽章 |
+| `tooling/checker` | 2 | `tools/check_site.py` 退出码 0、stdout 4 次 PASS |
+| `contract/css` | 1 | 响应式/打印/减少动效/字体与配色 token 齐备 |
+| `raises/parser` | 1 | `SiteParser.feed(None)` 抛 `TypeError`（无入参防御） |
+| `raises/resource` | 1 | `check_local_resource(raw=None)` 抛 `AttributeError` |
+
+复算（在本仓根目录执行）：
+
+```bash
+python3 eval/run_cases.py            # 必须 20/20；exit 0 才算合格
+python3 eval/run_cases.py --selftest # 篡改首条期望值，必须 19/20 变红且 exit 0
+make eval                            # run_cases + 既有 pytest（4 passed），exit 0 才算合格
+```
+
+`python3 eval/run_cases.py --save` 会把本次结果写入 `eval/run-report.json`（含 `failed_by_axis`），便于逐条对表。失败归因按 axis 汇总，例如：
+
+```text
+失败归因（按 axis）：
+  contract/counts: 1 条 —— PF-01
+  evidence/json: 1 条 —— PF-11
+```
+
+改动源码或 `site/` 后，先跑 `python3 tools/check_site.py` 确认静态契约，再跑 `make eval`；若题库变红，按上面 axis 汇总定位到具体 case，其 `verify` 字段就是可单独复跑的最小代码。

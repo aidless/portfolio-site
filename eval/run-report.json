@@ -1,0 +1,129 @@
+{
+ "total": 20,
+ "passed": 20,
+ "failed": 0,
+ "selftest": false,
+ "failed_by_axis": {},
+ "results": [
+  {
+   "id": "PF-01",
+   "axis": "contract/counts",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-02",
+   "axis": "contract/counts",
+   "ok": true,
+   "detail": "3"
+  },
+  {
+   "id": "PF-03",
+   "axis": "contract/counts",
+   "ok": true,
+   "detail": "3"
+  },
+  {
+   "id": "PF-04",
+   "axis": "contract/text",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-05",
+   "axis": "contract/text",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-06",
+   "axis": "contract/text",
+   "ok": true,
+   "detail": "4"
+  },
+  {
+   "id": "PF-07",
+   "axis": "resources/local",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-08",
+   "axis": "resources/local",
+   "ok": true,
+   "detail": "1"
+  },
+  {
+   "id": "PF-09",
+   "axis": "resources/local",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-10",
+   "axis": "evidence/json",
+   "ok": true,
+   "detail": "5"
+  },
+  {
+   "id": "PF-11",
+   "axis": "evidence/json",
+   "ok": true,
+   "detail": "185"
+  },
+  {
+   "id": "PF-12",
+   "axis": "evidence/json",
+   "ok": true,
+   "detail": "0.0"
+  },
+  {
+   "id": "PF-13",
+   "axis": "evidence/verdicts",
+   "ok": true,
+   "detail": "True"
+  },
+  {
+   "id": "PF-14",
+   "axis": "evidence/verdicts",
+   "ok": true,
+   "detail": "pass,pass,pass,pass,pass"
+  },
+  {
+   "id": "PF-15",
+   "axis": "evidence/verdicts",
+   "ok": true,
+   "detail": "5"
+  },
+  {
+   "id": "PF-16",
+   "axis": "tooling/checker",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-17",
+   "axis": "tooling/checker",
+   "ok": true,
+   "detail": "4"
+  },
+  {
+   "id": "PF-18",
+   "axis": "contract/css",
+   "ok": true,
+   "detail": "0"
+  },
+  {
+   "id": "PF-19",
+   "axis": "raises/parser",
+   "ok": true,
+   "detail": "raised TypeError"
+  },
+  {
+   "id": "PF-20",
+   "axis": "raises/resource",
+   "ok": true,
+   "detail": "raised AttributeError"
+  }
+ ]
+}
