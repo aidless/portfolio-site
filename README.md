@@ -1,14 +1,22 @@
 # AI 应用工程作品集
 
-> **English TL;DR**: A zero-dependency static portfolio site presenting three flagship evidence lines (agent-platform, llm-lab, study-buddy) with explicit boundaries. Its site contract checker validates cards, evidence numbers, local assets, zero JavaScript/CDN and the 5/5 offline PASS markers; the embedded llm-lab evidence is an offline demo, not a model-quality claim.
+三条证据线各自写明证明什么、不证明什么；页上的数字是上游某次提交里的原文，不是当场重跑。
+真实用户为 0，没有生产 SLO，也不把 agent-platform、llm-lab、study-buddy、rag-qa 说成 A。
+`make check` 只核对已提交摘录；摘录会过期，`make refresh` 才对比上游默认分支。
+
+> **English TL;DR**: Three evidence lines, each with a stated limit. Every cited number is a quote from a pinned upstream commit, not a fresh rerun. Real users are 0, there is no production SLO, and this site does not grade agent-platform, llm-lab, study-buddy, or rag-qa as A. `make check` matches the committed snapshot only; `make refresh` is the online diff.
+
+STATUS: WORK-IN-PROGRESS — not A yet
+
+还没到 A 的缺口：GitHub About 仍是旧的一行简介（替换文案在文末，PR 改不了 About）。https://aidless.github.io/portfolio-site/ 在 2026-11-16 返回 HTTP 200，正文与当时 `site/index.html`（`42dbb0d`）字节相同，sha256 `c13142cc8e5938c436001ed4deb4bb5d15e841276e0ef5a7c4adebf09cf92ac6`；本分支部署前线上仍是旧页。上游测试总数是引用，没有在本仓重跑；llm-lab 自己的文件互相不一致。
 
 [![CI](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml/badge.svg)](https://github.com/aidless/portfolio-site/actions/workflows/pages.yml)
 
-**在线地址**：https://aidless.github.io/portfolio-site/ （GitHub Pages，2026-11-10 实测 HTTP 200）
+**在线地址**：https://aidless.github.io/portfolio-site/ （GitHub Pages。2026-11-16 实测 HTTP 200，且与当时的 `site/index.html` 字节相同；本分支部署前线上仍是旧页。）
 
 ![站点截图](docs/screenshot.png)
 
-*截图：2026-11-10 本地 `python3 -m http.server 8020 -d site` 后 Chrome headless 1280×3200 实截（首屏 + agent-platform 卡 + llm-lab 报告节）。页面淡入动画未在 headless 中完全触发，成图偏浅，属如实状态。*
+*截图：2026-11-16 本地 `python3 -m http.server 8020 -d site` 后 Chrome headless 1280×3200、`virtual-time-budget=4000` 实截。画面含首屏和 agent-platform 卡上的新摘录句（10/10 模块 PASS、65 PASS、16 个测试方法），以及 llm-lab 报告节的上沿。底部证据账本不在这 3200px 里。下一次改可见文案后，这张图会再次过期。*
 
 这是一个零依赖静态作品集，用三条旗舰证据线说明 AI 应用工程能力：
 
@@ -28,7 +36,7 @@ rag-qa 作为技术补充，展示混合检索、强制引用、证据不足拒�
 | 对照对象 | 现实基础 | 本作品集的差异 |
 |---|---|---|
 | 只放 Demo 链接的典型作品集 | 常见 GitHub Pages 静态站 | 每条证据线都带"证明什么/不证明什么"边界声明 + fail-closed 检查器 |
-| 只放测试数 / badge 的 README | 常见项目 README | 证据数字（16/16、391 passed、10/12）可由 `tools/check_site.py` 在本树复算 |
+| 只放测试数 / badge 的 README | 常见项目 README | 证据数字钉在 `evidence/sources.json` 的上游提交与摘录上，`make check` 离线核对，对不上就失败 |
 | 未标注合成 Demo 的评测展示 | 常见评测页 | 所有合成 Demo、离线 Provider、小样本评测与未验证项都在页面主动标注 |
 | 声称生产可用的作品集 | 常见求职作品集 | study-buddy 真实用户 0、48h 回访 0/0 如实标注，不声称生产可用 |
 
@@ -37,11 +45,11 @@ rag-qa 作为技术补充，展示混合检索、强制引用、证据不足拒�
 
 ## 当前状态
 
-- 新版站点已完成本地构建、静态契约检查和浏览器验收。
-- `main` 推送后，Pages workflow 会先运行静态检查，再发布 `site/`。
-- 当前线上版本以对应 GitHub Actions run 和 Pages HTTPS 响应为准。
+- 2026-11-16 本地 `make check` 退出码 0（离线，墙钟约 0.07s）。同一天对本地 `http://127.0.0.1:8020/` 做了 GET，新摘录短语都在正文里，并重拍了顶部 1280×3200 截图。没有逐个点完页面上的外链。
+- `main` 推送后，Pages workflow 会先跑 `make check`，再发布 `site/`。
+- 公开 Pages 在这次部署前仍是旧页，见文首的 sha256。
 - study-buddy 当前真实用户为 **0**，首任务完成和 48 小时回访均为 **0/0**。
-- 所有合成 Demo、离线 Provider、小样本评测和未验证项都在页面中主动标注。
+- 所有合成 Demo、离线 Provider、小样本评测和未验证项都在页面中主动标注。上游四个仓库都不标成 A。
 
 ## 快速开始
 
@@ -55,8 +63,8 @@ python3 -m http.server 8020 -d site
 ## 安装（零依赖，无构建）
 
 本仓库是**零依赖静态站点**，无需安装任何包或构建工具。直接克隆后即可服务
-`site/`（见"快速开始"）。唯一可选工具是 Python 3 标准库的 `http.server` 与
-`tools/check_site.py`（同为标准库实现）。
+`site/`（见"快速开始"）。`make check` 只用 Python 3 标准库。`make refresh`
+同样只用标准库，但会访问 GitHub。
 
 ## 本地运行
 
@@ -68,21 +76,20 @@ python3 -m http.server 8020 -d site
 ## 静态检查
 
 ```bash
-python3 tools/check_site.py
+make check      # 离线：check_site.py + evidence/sources.json 对账，并自测「站点丢掉摘录会失败」
+make refresh    # 可选、需要网络：重拉上游默认分支和记录在案的开放 PR，只打印差异，不改文件
 ```
 
-检查器验证三张项目卡、证据数字、全部本地资源、零 JavaScript、零 CDN、
-响应式/打印/减少动效契约，以及 llm-lab 报告中的 5 个 PASS 标记。
+`make check` 不安装依赖、不访问网络。它验证三张项目卡、页上的摘录短语、全部本地资源、零 JavaScript、零 CDN、响应式/打印/减少动效契约，以及 llm-lab 报告中的 5 个 PASS 标记。页上的 `419 passed` 与 `488 passed` 必须同时在，因为上游同一次提交里两处写法不一致。
 
 ## 测试
 
 ```bash
 cd portfolio-site
-python3 tools/check_site.py    # 3 行 PASS（site contract / zero-JS-CDN / llm-lab evidence）
+make check    # 离线入口。check_site.py 打出 3 行 PASS；provenance 再打 1 行 PASS
 ```
 
-本仓库无 pytest 套件——`tools/check_site.py` 是唯一的自动验证入口（零依赖、
-确定性、可离线跑）。它断言：
+`tools/check_site.py` 与 `tools/check_provenance.py` 都是标准库、可离线跑。`tests/` 里有 pytest（装了 pytest 时 `make eval` 会跑）。静态契约断言：
 
 - **site contract**：3 张旗舰卡、4 行证据、全部本地资源、边界声明存在。
 - **zero JS/CDN**：零 `<script>`、零外部资源、响应式/打印/减少动效 CSS 契约。
@@ -90,17 +97,21 @@ python3 tools/check_site.py    # 3 行 PASS（site contract / zero-JS-CDN / llm-
 
 ## Fail-closed guarantee
 
-`tools/check_site.py` returns **exit 1** on any contract violation — missing file,
+`make check` returns **exit 1** when either checker fails. `tools/check_site.py` returns **exit 1** on any contract violation — missing file,
 missing element id, stale four-demo copy (`FORBIDDEN_TEXT`), wrong flagship-card count,
 a `<script>` tag, an external resource, an invalid llm-lab result JSON, or a forbidden
 pattern (API key `sk-...`, GitHub token `gh[pousr]_...`, absolute home path `/home/`,
-`/Users/`, `C:\`). A bad site produces **FAIL**, never a silent pass. It is the only
-automated verification entry point (zero-dependency, deterministic, offline-runnable).
+`/Users/`, `C:\`). `tools/check_provenance.py` returns **exit 1** when a site phrase,
+snapshot, or `evidence/sources.json` value drifts, including the withdrawn strings
+`16/16` and `391 passed`. A bad site produces **FAIL**, never a silent pass.
+Both checkers are zero-dependency, deterministic, and offline-runnable. CI
+(`.github/workflows/pr-checks.yml` and `pages.yml`) runs `make check`.
 
 ## 证明什么 / 不证明什么
 
-**证明：** 站点按静态契约构建，检查器在本地通过；三张旗舰卡与证据数字存在；
-零外部依赖与零 JS 的静态契约成立；llm-lab 离线报告的 5 个 PASS 标记可见。
+**证明：** 站点按静态契约构建，`make check` 在本地通过；三张旗舰卡与摘录短语存在；
+零外部依赖与零 JS 的静态契约成立；llm-lab 离线报告的 5 个 PASS 标记可见；
+页上每个上游数字都能在 `evidence/snapshots/` 里对上一次提交的原文或 JSONL 计数。
 
 **不证明：** 任何真实用户留存（study-buddy 当前真实用户为 **0**，48 小时回访
 **0/0**）；生产可用率或 SLO（站点未接入任何监控）；截图只证明视觉与交互路径，
@@ -111,7 +122,7 @@ automated verification entry point (zero-dependency, deterministic, offline-runn
 
 ```bash
 cd portfolio-site
-python3 tools/check_site.py    # 3 行 PASS
+make check    # 离线
 python3 -m http.server 8020 -d site   # 浏览器验收：http://127.0.0.1:8020/
 ```
 
@@ -129,13 +140,21 @@ python3 -m http.server 8020 -d site   # 浏览器验收：http://127.0.0.1:8020/
 GitHub Pages workflow 会在推送后先运行静态检查，再发布 `site/`。发布结果只由
 对应 Actions run、部署记录和公开 HTTPS 响应确认。
 
+## GitHub About（需要在网页上粘贴）
+
+2026-11-16 读到的 About 是：`Public portfolio site for AI application / Agent engineering roles (GitHub Pages)`。
+
+建议换成：
+
+`Zero-dependency static portfolio. Cited numbers are pinned upstream quotes, not fresh reruns. Real users 0. No production SLO. Linked repos are not graded A.`
+
 ## License
 
 MIT
 
 ## U1 results table (recomputed 2026-11-11)
 
-<!-- figure: docs/screenshot.png (existing screenshot; a fresh capture is NOT YET MEASURED in this pass) -->
+<!-- figure: docs/screenshot.png (recaptured 2026-11-16, Chrome headless 1280x3200 of http://127.0.0.1:8020/; top of the page only) -->
 
 All values below were recomputed from the committed evidence JSON, and the site
 checker was executed locally for this pass.
@@ -154,14 +173,21 @@ checker was executed locally for this pass.
 **Quickstart command actually executed for this pass** (exit code 0):
 
 ```bash
-python3 tools/check_site.py
+make check
+# python3 tools/check_site.py
 # PASS  site contract: 3 flagship cards, 4 evidence rows, local assets, boundaries
 # PASS  zero JavaScript, zero CDN, responsive/print/reduced-motion CSS contracts
 # PASS  llm-lab evidence: 5/5 PASS, $0.000000, 5 visible report badges
+# python3 tools/check_provenance.py --selftest
+# PASS  provenance: 22 claims match evidence/sources.json and site/index.html
+# PASS  provenance selftest: a site missing the quoted value fails
 ```
 
-The screenshot already embedded above is a real local headless-browser capture;
-no new figure was fabricated for this pass. The offline provider gives
+`make refresh` was also run on 2026-11-16. It exited 0: the pinned quotes were still on each default-branch HEAD, and the recorded open-PR expectations still matched. That command needs a network and is not part of `make check`.
+
+The screenshot embedded above is a real local headless-browser capture from
+2026-11-16. It shows the top 3200px after the provenance wording change, not
+the ledger at the bottom. The offline provider gives
 `model: offline-demo-v1` and `total_cost_usd: 0.0` — cost and
 quality numbers here are demo artifacts, not production measurements.
 

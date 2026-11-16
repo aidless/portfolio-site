@@ -1,0 +1,6 @@
+repo: aidless/study-buddy
+commit: cbca78962ef0ecdc500d6f16897c8c3dd62c5440
+path: docs/user-validation-status.md
+fetched_at: 2026-11-16
+
+| 48 小时后仍愿意继续使用的用户 | 0/0 | 5/10 | 无样本 |

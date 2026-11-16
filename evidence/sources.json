@@ -1,0 +1,423 @@
+{
+  "schema": 1,
+  "fetched_at": "2026-11-16",
+  "forbidden_site_text": [
+    "16/16",
+    "391 passed"
+  ],
+  "claims": [
+    {
+      "id": "agent-platform.smoke-offline",
+      "kind": "quote",
+      "repo": "aidless/agent-platform",
+      "commit": "677377f25566d11cf5301766cf3b9979199f2145",
+      "path": "README.md",
+      "line": 35,
+      "snapshot": "evidence/snapshots/agent-platform-readme-L35.txt",
+      "quote": "**结果如何。** `make smoke-offline`（CI 同款离线档）**10/10 模块 PASS**；",
+      "value": "10/10 模块 PASS",
+      "site_text": "10/10 模块 PASS",
+      "open_pr": {
+        "number": 2,
+        "head": "57376669267c9918375268458e4e42c325c86297",
+        "quote_on_head": false,
+        "note": "Unmerged PR #2 drops this 10/10 sentence and describes 9 offline modules in CI."
+      }
+    },
+    {
+      "id": "agent-platform.replay",
+      "kind": "quote",
+      "repo": "aidless/agent-platform",
+      "commit": "677377f25566d11cf5301766cf3b9979199f2145",
+      "path": "README.md",
+      "line": 36,
+      "snapshot": "evidence/snapshots/agent-platform-readme-L36.txt",
+      "quote": "demo 回放 **65 PASS / 2 预期失败 / 0 未预期失败**（11 个模块）。M1 真打",
+      "value": "65 PASS / 2 预期失败 / 0 未预期失败",
+      "site_text": "65 PASS / 2 预期失败 / 0 未预期失败",
+      "open_pr": {
+        "number": 2,
+        "head": "57376669267c9918375268458e4e42c325c86297",
+        "quote_on_head": false,
+        "note": "Unmerged PR #2 restates the replay as 65 PASS, 2 expected failures, 7 notes, 0 unexpected failures."
+      }
+    },
+    {
+      "id": "agent-platform.module-count",
+      "kind": "quote",
+      "repo": "aidless/agent-platform",
+      "commit": "677377f25566d11cf5301766cf3b9979199f2145",
+      "path": "README.md",
+      "line": 36,
+      "snapshot": "evidence/snapshots/agent-platform-readme-L36.txt",
+      "quote": "demo 回放 **65 PASS / 2 预期失败 / 0 未预期失败**（11 个模块）。M1 真打",
+      "value": "11 个模块",
+      "site_text": "11 个模块",
+      "open_pr": {
+        "number": 2,
+        "head": "57376669267c9918375268458e4e42c325c86297",
+        "quote_on_head": false,
+        "note": "Unmerged PR #2 still discusses 11 modules, but this exact sentence is rewritten."
+      }
+    },
+    {
+      "id": "agent-platform.demo-test-methods",
+      "kind": "lines",
+      "repo": "aidless/agent-platform",
+      "commit": "677377f25566d11cf5301766cf3b9979199f2145",
+      "path": "demo/test_demo.py",
+      "snapshot": "evidence/snapshots/agent-platform-demo-tests.txt",
+      "lines": [
+        "    def test_payload_shape_and_story_paths(self) -> None:",
+        "    def test_reproducible_except_observed_latency(self) -> None:",
+        "    def test_matches_committed_m7_result(self) -> None:",
+        "    def test_committed_static_payload_is_current(self) -> None:",
+        "    def test_write_payload_round_trip(self) -> None:",
+        "    def test_ui_has_no_handwritten_metrics(self) -> None:",
+        "    def test_metric_scanner_can_go_red(self) -> None:",
+        "    def test_no_secrets_or_absolute_paths(self) -> None:",
+        "    def test_secret_scanner_can_go_red(self) -> None:",
+        "    def test_offline_upstream_and_no_outbound_calls(self) -> None:",
+        "    def test_static_index_contract(self) -> None:",
+        "    def test_provenance_is_complete(self) -> None:",
+        "    def test_artifact_shape_and_expected_failures(self) -> None:",
+        "    def test_fresh_build_has_same_module_statuses_when_results_exist(self) -> None:",
+        "    def test_modules_ui_contract(self) -> None:",
+        "    def test_api_health_runs_and_live_rerun(self) -> None:"
+      ],
+      "count_pattern": "^\\s*def test_",
+      "value": "16",
+      "site_text": "16 个测试方法",
+      "open_pr": {
+        "number": 2,
+        "head": "57376669267c9918375268458e4e42c325c86297",
+        "quote_on_head": true,
+        "note": "Unmerged PR #2 keeps these 16 test methods. It does not record a 16/16 pass result."
+      }
+    },
+    {
+      "id": "llm-lab.package-passed",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "CHANGELOG.md",
+      "line": 135,
+      "snapshot": "evidence/snapshots/llm-lab-changelog-L135.txt",
+      "quote": "  419 passed / 2 skipped; repository-root self-evolution suite: 106 passed;",
+      "value": "419 passed / 2 skipped",
+      "site_text": "419 passed / 2 skipped",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Unmerged PR #5 keeps 419 as a point-in-time local run and adds docs/test-inventory.json at 421 passed / 2 skipped. This exact line is rewritten."
+      }
+    },
+    {
+      "id": "llm-lab.root-passed",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "CHANGELOG.md",
+      "line": 135,
+      "snapshot": "evidence/snapshots/llm-lab-changelog-L135.txt",
+      "quote": "  419 passed / 2 skipped; repository-root self-evolution suite: 106 passed;",
+      "value": "106 passed",
+      "site_text": "106 passed",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Unmerged PR #5 relabels the root suite: previously 106 collected in test_selfevolve.py; inventory collected becomes 112."
+      }
+    },
+    {
+      "id": "llm-lab.ruff-mypy",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "CHANGELOG.md",
+      "line": 136,
+      "snapshot": "evidence/snapshots/llm-lab-changelog-L136.txt",
+      "quote": "  ruff and mypy clean.  The checked-in evidence verifier also passes 52 file",
+      "value": "ruff and mypy clean",
+      "site_text": "ruff and mypy clean",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Unmerged PR #5 removes this changelog sentence."
+      }
+    },
+    {
+      "id": "llm-lab.package-readme",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "llm_lab/README.md",
+      "line": 15,
+      "snapshot": "evidence/snapshots/llm-lab-package-readme-L15.txt",
+      "quote": "**Current status: v0.9.7 — first CI-green release.** 419 package tests pass",
+      "value": "419 package tests pass",
+      "site_text": "419 package tests pass",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Unmerged PR #5 rewrites the package README and removes the 419 badge and this sentence."
+      }
+    },
+    {
+      "id": "llm-lab.architecture-full",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "llm_lab/docs/ARCHITECTURE.md",
+      "line": 5,
+      "snapshot": "evidence/snapshots/llm-lab-architecture-L5.txt",
+      "quote": "> 当前测试状态：**488 passed / 2 skipped**（全仓口径，与 README 徽章和 CI 一致；只跑 `llm_lab/` 子树时收集 384 项 = **382 passed / 2 skipped**）；`ruff`（含 `S` 安全规则）与 `mypy` 均通过。",
+      "value": "488 passed / 2 skipped",
+      "site_text": "488 passed / 2 skipped",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Unmerged PR #5 removes the 488 and 382 sentences from ARCHITECTURE.md."
+      }
+    },
+    {
+      "id": "llm-lab.architecture-subtree",
+      "kind": "quote",
+      "repo": "aidless/llm-lab",
+      "commit": "42027f21594bf5dc7e1ea1fd08233de83cfb3350",
+      "path": "llm_lab/docs/ARCHITECTURE.md",
+      "line": 5,
+      "snapshot": "evidence/snapshots/llm-lab-architecture-L5.txt",
+      "quote": "> 当前测试状态：**488 passed / 2 skipped**（全仓口径，与 README 徽章和 CI 一致；只跑 `llm_lab/` 子树时收集 384 项 = **382 passed / 2 skipped**）；`ruff`（含 `S` 安全规则）与 `mypy` 均通过。",
+      "value": "382 passed / 2 skipped",
+      "site_text": "382 passed / 2 skipped",
+      "open_pr": {
+        "number": 5,
+        "head": "18213a85de67dbe996a23cc8673c340c44bd74bc",
+        "quote_on_head": false,
+        "note": "Same unmerged PR #5 removal as the 488 sentence. These two figures disagree with the 419 changelog line on this commit."
+      }
+    },
+    {
+      "id": "study-buddy.readme-users",
+      "kind": "quote",
+      "repo": "aidless/study-buddy",
+      "commit": "cbca78962ef0ecdc500d6f16897c8c3dd62c5440",
+      "path": "README.md",
+      "line": 14,
+      "snapshot": "evidence/snapshots/study-buddy-readme-L14.txt",
+      "quote": "数字来自 [`docs/user-validation-status.md`](docs/user-validation-status.md)（更新于 2026-10-27），如实记录：**当前真实用户为 0，招募未开始**；`?demo=1` 是合成数据，不能替代真实用户。",
+      "value": "当前真实用户为 0",
+      "site_text": "当前真实用户为 0",
+      "open_pr": {
+        "number": 11,
+        "head": "238ceb0847de574efb91affe81fdeb158c74ca06",
+        "quote_on_head": false,
+        "note": "Unmerged PR #11 rewrites the README. The docs table of zeros is unchanged on that branch."
+      }
+    },
+    {
+      "id": "study-buddy.tests-11",
+      "kind": "quote",
+      "repo": "aidless/study-buddy",
+      "commit": "cbca78962ef0ecdc500d6f16897c8c3dd62c5440",
+      "path": "README.md",
+      "line": 144,
+      "snapshot": "evidence/snapshots/study-buddy-readme-L144.txt",
+      "quote": "实测（2026-11-01，Node 24 / 正常路径）：`Test Files 4 passed, Tests 11 passed`，题库校验 `ALL_OK`（真题 720 道 / 18 年 / 每题 4 选项，大题 85 道，政治 100 / 英语一 122 / 数学一 126 / 作文 16 / 解答题 24）。",
+      "value": "Tests 11 passed",
+      "site_text": "Tests 11 passed",
+      "open_pr": {
+        "number": 11,
+        "head": "238ceb0847de574efb91affe81fdeb158c74ca06",
+        "quote_on_head": false,
+        "note": "Unmerged PR #11 no longer writes Tests 11 passed or ALL_OK."
+      }
+    },
+    {
+      "id": "study-buddy.qbank-all-ok",
+      "kind": "quote",
+      "repo": "aidless/study-buddy",
+      "commit": "cbca78962ef0ecdc500d6f16897c8c3dd62c5440",
+      "path": "README.md",
+      "line": 144,
+      "snapshot": "evidence/snapshots/study-buddy-readme-L144.txt",
+      "quote": "实测（2026-11-01，Node 24 / 正常路径）：`Test Files 4 passed, Tests 11 passed`，题库校验 `ALL_OK`（真题 720 道 / 18 年 / 每题 4 选项，大题 85 道，政治 100 / 英语一 122 / 数学一 126 / 作文 16 / 解答题 24）。",
+      "value": "ALL_OK",
+      "site_text": "ALL_OK",
+      "open_pr": {
+        "number": 11,
+        "head": "238ceb0847de574efb91affe81fdeb158c74ca06",
+        "quote_on_head": false,
+        "note": "Unmerged PR #11 no longer writes ALL_OK."
+      }
+    },
+    {
+      "id": "study-buddy.first-task",
+      "kind": "quote",
+      "repo": "aidless/study-buddy",
+      "commit": "cbca78962ef0ecdc500d6f16897c8c3dd62c5440",
+      "path": "docs/user-validation-status.md",
+      "line": 13,
+      "snapshot": "evidence/snapshots/study-buddy-users-L13.txt",
+      "quote": "| 无提示完成首件任务的用户 | 0/0 | 7/10 | 无样本 |",
+      "value": "0/0",
+      "site_text": "首任务完成 0/0",
+      "open_pr": {
+        "number": 11,
+        "head": "238ceb0847de574efb91affe81fdeb158c74ca06",
+        "quote_on_head": true,
+        "note": "Unmerged PR #11 does not edit this table. First-task completion stays 0/0."
+      }
+    },
+    {
+      "id": "study-buddy.return-48h",
+      "kind": "quote",
+      "repo": "aidless/study-buddy",
+      "commit": "cbca78962ef0ecdc500d6f16897c8c3dd62c5440",
+      "path": "docs/user-validation-status.md",
+      "line": 14,
+      "snapshot": "evidence/snapshots/study-buddy-users-L14.txt",
+      "quote": "| 48 小时后仍愿意继续使用的用户 | 0/0 | 5/10 | 无样本 |",
+      "value": "0/0",
+      "site_text": "48 小时回访 0/0",
+      "open_pr": {
+        "number": 11,
+        "head": "238ceb0847de574efb91affe81fdeb158c74ca06",
+        "quote_on_head": true,
+        "note": "Unmerged PR #11 does not edit this table. The 48-hour return stays 0/0."
+      }
+    },
+    {
+      "id": "rag-qa.pytest",
+      "kind": "quote",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "README.md",
+      "line": 50,
+      "snapshot": "evidence/snapshots/rag-qa-readme-L50.txt",
+      "quote": "4. **测试可运行**：`python3 -m pytest tests/ -q` → **6 passed**（`test_rag.py`：",
+      "value": "6 passed",
+      "site_text": "6 passed",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": false,
+        "note": "Unmerged PR #1 keeps the offline table and stops writing the 6 passed sentence."
+      }
+    },
+    {
+      "id": "rag-qa.readme-fixed",
+      "kind": "quote",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "README.md",
+      "line": 115,
+      "snapshot": "evidence/snapshots/rag-qa-readme-L115.txt",
+      "quote": "| fixed | hash-trigram | 9/12 | 2/12 | 4/4 |",
+      "value": "9/12",
+      "site_text": "9/12",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Unmerged PR #1 keeps fixed recall@5 at 9/12."
+      }
+    },
+    {
+      "id": "rag-qa.readme-structure",
+      "kind": "quote",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "README.md",
+      "line": 116,
+      "snapshot": "evidence/snapshots/rag-qa-readme-L116.txt",
+      "quote": "| structure | hash-trigram | 10/12 | 3/12 | 4/4 |",
+      "value": "10/12",
+      "site_text": "10/12",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Unmerged PR #1 keeps structure recall@5 at 10/12."
+      }
+    },
+    {
+      "id": "rag-qa.jsonl-fixed-recall",
+      "kind": "jsonl_ratio",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "results/eval-offline.jsonl",
+      "snapshot": "evidence/snapshots/rag-qa-eval-offline.jsonl",
+      "strategy": "fixed",
+      "field": "recall@5",
+      "value": "9/12",
+      "site_text": "9/12",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Counted from results/eval-offline.jsonl on this commit. PR #1 does not change that file."
+      }
+    },
+    {
+      "id": "rag-qa.jsonl-structure-recall",
+      "kind": "jsonl_ratio",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "results/eval-offline.jsonl",
+      "snapshot": "evidence/snapshots/rag-qa-eval-offline.jsonl",
+      "strategy": "structure",
+      "field": "recall@5",
+      "value": "10/12",
+      "site_text": "10/12",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Counted from results/eval-offline.jsonl on this commit. PR #1 does not change that file."
+      }
+    },
+    {
+      "id": "rag-qa.jsonl-fixed-abstain",
+      "kind": "jsonl_ratio",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "results/eval-offline.jsonl",
+      "snapshot": "evidence/snapshots/rag-qa-eval-offline.jsonl",
+      "strategy": "fixed",
+      "field": "abstained",
+      "value": "4/4",
+      "site_text": "4/4",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Negative abstentions in the same JSONL. PR #1 does not change that file."
+      }
+    },
+    {
+      "id": "rag-qa.jsonl-structure-abstain",
+      "kind": "jsonl_ratio",
+      "repo": "aidless/rag-qa",
+      "commit": "867d69aced528bc2e3c7c13e41661b0a95c9d76b",
+      "path": "results/eval-offline.jsonl",
+      "snapshot": "evidence/snapshots/rag-qa-eval-offline.jsonl",
+      "strategy": "structure",
+      "field": "abstained",
+      "value": "4/4",
+      "site_text": "4/4",
+      "open_pr": {
+        "number": 1,
+        "head": "e0d49a8ae0dc54f70295b9d53587255f88559028",
+        "quote_on_head": true,
+        "note": "Negative abstentions in the same JSONL. PR #1 does not change that file."
+      }
+    }
+  ]
+}

@@ -137,7 +137,7 @@
           </dl>
 
           <div class="evidence-callout">
-            <p><span>EV-01</span> Demo 契约测试 16/16；M1–M9 共 11 个模块证据卡；本地浏览器验收通过。</p>
+            <p><span>EV-01</span> README 写 make smoke-offline 为 10/10 模块 PASS；回放为 65 PASS / 2 预期失败 / 0 未预期失败（11 个模块）。该提交的 demo/test_demo.py 有 16 个测试方法，没有全过记录。未合并的 #2 会改写这两句。</p>
             <p><span>边界</span> LLM 回答由脚本上游生成；工单手写；延迟只是观测值，不是 SLO。</p>
           </div>
 
@@ -199,7 +199,7 @@
           </dl>
 
           <div class="evidence-callout">
-            <p><span>EV-02</span> 产品包 391 passed / 2 skipped；根自演化套件 106 passed；Ruff、Mypy 通过。</p>
+            <p><span>EV-02</span> CHANGELOG 写 419 passed / 2 skipped，根套件 106 passed，并写 ruff and mypy clean。包 README 写 419 package tests pass。同一提交的 ARCHITECTURE.md 写 488 passed / 2 skipped，子树 382 passed / 2 skipped，与上面不一致。本站没有重跑。未合并的 #5 会改写这些句子。</p>
             <p><span>边界</span> offline-demo-v1 是测试夹具，不是 LLM；它证明管线，不证明模型质量或榜单能力。</p>
           </div>
 
@@ -262,7 +262,7 @@
           </dl>
 
           <div class="evidence-callout evidence-callout-warn">
-            <p><span>USER-00</span> 真实用户 0；首任务完成 0/0；48 小时回访 0/0。招募尚未开始。</p>
+            <p><span>USER-00</span> 当前真实用户为 0；真实用户 0；首任务完成 0/0；48 小时回访 0/0。招募尚未开始。README 写 Tests 11 passed，题库 ALL_OK。未合并的 #11 不再写这两句。</p>
             <p><span>边界</span> 本地验收使用合成数据；云端同步、真实 iOS/Android 稳定性、留存与消费级通过均未验证。</p>
           </div>
 
@@ -290,6 +290,7 @@
         BM25 ⊕ 向量混合检索、强制引用、证据不足拒答，16 题正负样本。
         离线复测 structure 策略 recall@5 为 <strong>10/12</strong>，
         fixed 为 <strong>9/12</strong>；负样本拒答两组均为 <strong>4/4</strong>。
+        README 里的 pytest 句是 6 passed。未合并的 #1 不再写 6 passed，10/12 与 9/12 仍在表里。
       </p>
       <div class="supplement-links">
         <a href="https://github.com/aidless/rag-qa" target="_blank" rel="noreferrer">源码 ↗</a>
@@ -302,7 +303,7 @@
       <div class="section-heading reveal">
         <p class="eyebrow">EVIDENCE LEDGER / 证据账本</p>
         <h2>数字从哪里来，失败在哪里，<br>一眼能追到。</h2>
-        <p class="section-note">本次本地核验时间：2026-10-27。公开站的状态与本地新改动分开表述。</p>
+        <p class="section-note">摘录日期 2026-11-16，钉在仓库 evidence/sources.json（agent-platform 677377f25566、llm-lab 42027f21594b、study-buddy cbca78962ef0、rag-qa 867d69aced52）。这不是当天重跑。这四个上游仓库都不是 A。公开 Pages 要等这次改动部署后才会换成这页。</p>
       </div>
 
       <div class="ledger reveal" role="table" aria-label="项目证据账本">
@@ -315,19 +316,19 @@
         <div class="ledger-row" role="row">
           <strong role="cell">agent-platform</strong>
           <span role="cell" data-label="已运行">Demo 契约 + gates + Chromium</span>
-          <span role="cell" class="pass" data-label="结果">16/16 · PASS</span>
+          <span role="cell" class="pass" data-label="结果">10/10 模块 PASS · 65 PASS</span>
           <span role="cell" data-label="不能推出">真实客服流量、真实 LLM 可用率、SLO</span>
         </div>
         <div class="ledger-row" role="row">
           <strong role="cell">llm-lab</strong>
           <span role="cell" data-label="已运行">Ruff + Mypy + Pytest + CLI Demo</span>
-          <span role="cell" class="pass" data-label="结果">391 passed · audit OK</span>
+          <span role="cell" data-label="结果">419 passed · 106 passed</span>
           <span role="cell" data-label="不能推出">模型质量、榜单名次、生产可靠性</span>
         </div>
         <div class="ledger-row" role="row">
           <strong role="cell">study-buddy</strong>
           <span role="cell" data-label="已运行">单测 + 题库 + 构建 + Chromium</span>
-          <span role="cell" class="pass" data-label="结果">11 passed · ALL_OK</span>
+          <span role="cell" class="pass" data-label="结果">Tests 11 passed · ALL_OK</span>
           <span role="cell" data-label="不能推出">真实用户可完成、留存、消费级通过</span>
         </div>
         <div class="ledger-row" role="row">
@@ -424,7 +425,7 @@
 
   <footer>
     <p><strong>AI Systems Portfolio</strong> · 零依赖静态页 · 无 CDN、无追踪脚本</p>
-    <p>Updated 2026-10-27 · Public deployments and local acceptance are labeled separately.</p>
+    <p>Provenance pinned 2026-11-16 · Quoted upstream lines, not a fresh rerun. Public Pages updates only after deploy.</p>
     <a href="#top">回到顶部 ↑</a>
   </footer>
 </body>

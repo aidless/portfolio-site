@@ -22,8 +22,9 @@
 标注。llm-lab 的成本 `$0.000000` 是离线 Provider 的零成本 demo（`llm-lab-result.json`
 的 `all_passed==true`、`total_cost_usd==0.0`、5 步全 `pass`），非真实计费。
 
-**验证（可复算）**：`tools/check_site.py` 是唯一自动验证入口（零依赖、确定性、可
-离线跑），实测 3 行 PASS：
+**验证（可复算）**：离线入口是 `make check`（`tools/check_site.py` 加上
+`tools/check_provenance.py`，零依赖、确定性、不访问网络）。`check_site.py` 实测
+3 行 PASS：
 - `site contract`：3 张旗舰卡、4 行证据、全部本地资源、边界声明存在；
 - `zero JavaScript, zero CDN`：零 `<script>`、零外部资源、响应式/打印/减少动效
   CSS 契约；
@@ -52,4 +53,4 @@ SLO（未接入监控）、**不证明**截图之外的视觉/交互价值；截
 | 证据 JSON | `site/evidence/llm-lab-result.json`（5 步全 pass、$0.000000） |
 | 检查器 | `tools/check_site.py`（exit 0/1 fail-closed） |
 | 3 行 PASS | `python3 tools/check_site.py` 实测 3 行 PASS |
-| 证据数字 | `16/16`、`391 passed`、`10/12`、`0 个真实用户`（在 index.html） |
+| 证据数字 | 页上短语必须等于 `evidence/sources.json` 里钉住的上游摘录。当前 main 上不再使用已撤回的 `16/16` 与 `391 passed`；llm-lab 同时保留互相冲突的 `419 passed / 2 skipped` 与 `488 passed / 2 skipped` |
