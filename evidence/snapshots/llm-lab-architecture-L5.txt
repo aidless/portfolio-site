@@ -1,0 +1,6 @@
+repo: aidless/llm-lab
+commit: 42027f21594bf5dc7e1ea1fd08233de83cfb3350
+path: llm_lab/docs/ARCHITECTURE.md
+fetched_at: 2026-11-16
+
+> 当前测试状态：**488 passed / 2 skipped**（全仓口径，与 README 徽章和 CI 一致；只跑 `llm_lab/` 子树时收集 384 项 = **382 passed / 2 skipped**）；`ruff`（含 `S` 安全规则）与 `mypy` 均通过。

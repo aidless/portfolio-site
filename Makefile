@@ -1,6 +1,13 @@
 PYTHON ?= python3
 
-.PHONY: eval
+.PHONY: eval check refresh
+
+check:
+	$(PYTHON) tools/check_site.py
+	$(PYTHON) tools/check_provenance.py --selftest
+
+refresh:
+	$(PYTHON) tools/refresh_evidence.py
 
 eval:
 	$(PYTHON) eval/run_cases.py

@@ -14,9 +14,10 @@ agent-platform（网关/工具沙箱/记忆压缩/可观测/端到端失败分�
 输出验证/成本记录/哈希链审计可重放）、study-buddy（移动端首次路径/任务状态持久化/
 隐私选项）——每条都同时声明"证明什么"与"不证明什么"。
 
-**辅助假设（H2，fail-closed）**：静态检查器（`tools/check_site.py`）在任一契约
-违反时返回 exit 1（FAIL）——缺文件、缺 id、过期文案、卡片数不对、出现 JS/外部
-资源、证据 JSON 非法、出现 API key/GitHub token/绝对 home 路径，全部被拦下。
+**辅助假设（H2，fail-closed）**：`make check`（`tools/check_site.py` 与
+`tools/check_provenance.py`）在任一契约违反时返回 exit 1（FAIL）——缺文件、缺 id、
+过期文案、卡片数不对、出现 JS/外部资源、证据 JSON 非法、出现 API key/GitHub token/
+绝对 home 路径，或页上短语与 `evidence/sources.json` 的摘录不一致，全部被拦下。
 
 **辅助假设（H3，诚实声明）**：study-buddy 当前真实用户为 **0**、首任务完成和
 48 小时回访均为 **0/0**；所有合成 Demo、离线 Provider、小样本评测和未验证项都
@@ -24,18 +25,20 @@ agent-platform（网关/工具沙箱/记忆压缩/可观测/端到端失败分�
 
 ## 2. 评测方案（可复算）
 
-### 2.1 静态契约检查（唯一自动验证入口，零依赖、确定性、可离线）
+### 2.1 静态契约检查（离线入口 `make check`，零依赖、确定性、不访问网络）
 
 ```bash
-python3 tools/check_site.py
+make check
 ```
 
-实测输出（3 行 PASS）：
+`check_site.py` 实测 3 行 PASS，接着 provenance 再报本树匹配：
 
 ```
 PASS  site contract: 3 flagship cards, 4 evidence rows, local assets, boundaries
 PASS  zero JavaScript, zero CDN, responsive/print/reduced-motion CSS contracts
 PASS  llm-lab evidence: 5/5 PASS, $0.000000, 5 visible report badges
+PASS  provenance: 22 claims match evidence/sources.json and site/index.html
+PASS  provenance selftest: a site missing the quoted value fails
 ```
 
 断言明细：
@@ -44,17 +47,20 @@ PASS  llm-lab evidence: 5/5 PASS, $0.000000, 5 visible report badges
 - **llm-lab evidence**：`llm-lab-result.json` 的 `steps==5`、`all_passed==true`、
   `total_cost_usd==0.0`、5 个 verdict 全 `pass`；报告 5 个 PASS 徽章可见。
 
-### 2.2 证据数字（真实）
+### 2.2 证据数字（钉在上游提交上的摘录，不是本仓重跑）
 
-`tools/check_site.py` 的 `REQUIRED_TEXT` 断言 `site/index.html` 必须包含：
-`16/16`（agent-platform）、`391 passed`（llm-lab）、`10/12`、`0 个真实用户`
-（study-buddy）。这些数字来自各证据线的真实产物，可在此树复算。
+`tools/check_provenance.py` 断言 `site/index.html` 里的短语等于
+`evidence/snapshots/` 中的原文或 JSONL 计数，并且 `evidence/sources.json`
+记下 repo、commit、路径、取值和摘录日期。已从页面撤回、检查器会拒绝的旧短语是
+`16/16` 与 `391 passed`。llm-lab 在同一次提交里同时写着 `419 passed / 2 skipped`
+和 `488 passed / 2 skipped`，页面两边都保留。study-buddy 的 `当前真实用户为 0`
+与 `0/0` 仍在。这些数字可以对照摘录复算，不能当成重新跑过上游测试套件。
 
 ### 2.3 成功标准
 
 | 判据 | 成功标准 |
 |---|---|
-| 静态检查 | `check_site.py` = 3 行 PASS（exit 0） |
+| 静态检查 | `make check` exit 0（`check_site.py` 3 行 PASS，provenance 1 行 PASS） |
 | 证据完整 | 3 张旗舰卡 + 4 行证据 + 5/5 PASS + $0.000000 |
 | fail-closed | 任一契约违反 → exit 1（不静默放行） |
 | 诚实声明 | 真实用户 0、48h 回访 0/0 在页面主动标注 |

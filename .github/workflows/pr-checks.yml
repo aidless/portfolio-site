@@ -14,6 +14,8 @@ jobs:
           python-version: "3.11"
       - name: Syntax check (compileall)
         run: python -m compileall -q . || true
+      - name: Offline site and provenance check
+        run: make check
       - name: Tests if present
         run: |
           if [ -f requirements.txt ]; then pip install -q -r requirements.txt || true; fi

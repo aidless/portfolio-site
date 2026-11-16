@@ -1,0 +1,6 @@
+repo: aidless/llm-lab
+commit: 42027f21594bf5dc7e1ea1fd08233de83cfb3350
+path: CHANGELOG.md
+fetched_at: 2026-11-16
+
+  ruff and mypy clean.  The checked-in evidence verifier also passes 52 file

@@ -1,0 +1,6 @@
+repo: aidless/llm-lab
+commit: 42027f21594bf5dc7e1ea1fd08233de83cfb3350
+path: CHANGELOG.md
+fetched_at: 2026-11-16
+
+  419 passed / 2 skipped; repository-root self-evolution suite: 106 passed;
